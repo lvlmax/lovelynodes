@@ -29,7 +29,7 @@ public class PlayerCommand : CommandExecutor, TabCompleter {
                     resident.printInfo(sender)
                 }
             } else {
-                Message.error(sender, "Usage: \"/player name\" to print player info")
+                Message.error(sender, "Uso: \"/player nombre\" para mostrar info del jugador")
             }
         }
         // parse player name
@@ -39,7 +39,7 @@ public class PlayerCommand : CommandExecutor, TabCompleter {
                 resident.printInfo(sender)
             }
             else {
-                Message.error(sender, "Invalid player name \"${args[0]}\"")
+                Message.error(sender, "Nombre del jugador \"${args[0]}\" inválido")
             }
         }
 
