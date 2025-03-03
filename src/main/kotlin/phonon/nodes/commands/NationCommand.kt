@@ -26,11 +26,8 @@ import java.util.concurrent.TimeUnit
 private val subcommands: List<String> = listOf(
     "help",
     "ayuda",
-    "create",
-    "delete",
     "leave",
     "capital",
-    "invite",
     "accept",
     "deny",
     "reject",
@@ -64,16 +61,12 @@ public class NationCommand : CommandExecutor, TabCompleter {
         when ( args[0].lowercase() ) {
             "help" -> printHelp(sender)
             "ayuda" -> printHelp(sender)
-            "create" -> createNation(player, args)
-            "delete" -> deleteNation(player)
             "leave" -> leaveNation(player)
             "capital" -> setCapital(player, args)
-            "invite" -> inviteToNation(player, args)
             "accept" -> accept(player)
             "deny" -> deny(player)
             "reject" -> deny(player)
             "list" -> listNations(player)
-            "rename" -> renameNation(player, args)
             "online" -> getOnline(player, args)
             "info" -> getInfo(player, args)
             "spawn" -> goToNationTownSpawn(player, args)
@@ -132,13 +125,10 @@ public class NationCommand : CommandExecutor, TabCompleter {
     }
 
     private fun printHelp(sender: CommandSender) {
-        Message.print(sender, "${ChatColor.BOLD}[Nodes] Nation commands:")
-        Message.print(sender, "/nation create${ChatColor.WHITE}: Create nation with name at location")
-        Message.print(sender, "/nation delete${ChatColor.WHITE}: Delete your nation")
-        Message.print(sender, "/nation leave${ChatColor.WHITE}: Leave your nation")
-        Message.print(sender, "/nation invite${ChatColor.WHITE}: Invite a nation to your nation")
-        Message.print(sender, "/nation list${ChatColor.WHITE}: List all nations")
-        Message.print(sender, "/nation color${ChatColor.WHITE}: Set nation color on map")
+        Message.print(sender, "${ChatColor.BOLD}[Nodes] Comandos de nación:")
+        Message.print(sender, "/nation leave${ChatColor.WHITE}: Abandonar tú nación")
+        Message.print(sender, "/nation list${ChatColor.WHITE}: Lista de naciones")
+        Message.print(sender, "¿Buscas los comandos de la town?${ChatColor.WHITE} Usa /town ayuda")
         return
     }
 
@@ -152,13 +142,13 @@ public class NationCommand : CommandExecutor, TabCompleter {
         }
 
         if ( args.size < 2 ) {
-            Message.print(player, "Usage: ${ChatColor.WHITE}/nation create [name]")
+            Message.print(player, "Uso: ${ChatColor.WHITE}/nation create [nombre]")
             return
         }
 
         // do not allow during war
         if ( Nodes.war.enabled == true ) {
-            Message.error(player, "Cannot create nations during war")
+            Message.error(player, "No se pueden crear naciones durante guerra")
             return
         }
         
@@ -169,31 +159,31 @@ public class NationCommand : CommandExecutor, TabCompleter {
 
         val town = resident.town
         if ( town == null ) {
-            Message.error(player, "You need a town to form a nation")
+            Message.error(player, "Necesitas una town para formar una nación")
             return
         }
 
         // only allow leaders to create nation
         if ( resident !== town.leader ) {
-            Message.error(player, "Only the town leader can form a nation")
+            Message.error(player, "Solamente el líder de la town puede crear una nación")
             return
         }
 
         val name = args[1]
         if ( !stringInputIsValid(name) ) {
-            Message.error(player, "Invalid nation name")
+            Message.error(player, "Nombre de nación inválido")
             return
         }
 
         val result = Nodes.createNation(sanitizeString(name), town, resident)
         if ( result.isSuccess ) {
-            Message.broadcast("${ChatColor.BOLD}Nation ${name} has been formed by ${town.name}")
+            Message.broadcast("${ChatColor.BOLD}¡La nación ${name} ha sido formada por ${town.name}!")
         }
         else {
             when ( result.exceptionOrNull() ) {
-                ErrorNationExists -> Message.error(player, "Nation \"${name}\" already exists")
-                ErrorTownHasNation -> Message.error(player, "You already belong to a nation")
-                ErrorPlayerHasNation -> Message.error(player, "You already belong to a nation")
+                ErrorNationExists -> Message.error(player, "La nación \"${name}\" ya existe")
+                ErrorTownHasNation -> Message.error(player, "Ya perteneces a una nación")
+                ErrorPlayerHasNation -> Message.error(player, "Ya perteneces a una nación")
             }
         }
     }
