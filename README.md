@@ -1,13 +1,9 @@
-# znodes
+# lovelynodes
 ![Nodes map screenshot](https://i.ibb.co/GcccyBs/nodes-map-example.jpg)
 
 Copia de la copia de la copia (Traducción y implementación de complementos del plugin de znodes hecho por Mvndi que a la vez es un fork del plugin minecraft-nodes de phonon)
 
-I have no intention of supporting older versions, if you are on an outdated version, update.
-Other plugin modules such as the dynmap and ports plugin will be moved to seperate repos.
-
-## Notable Changes
-* Folia Support
+No tengo intención en actualizar el plugin, solo he actualizado y retocado algunas funcionalidades para que se adapte a las necesidades del servidor.
 
 ## Original README
 Map painting but in block game. Contains server plugin and nodes dynmap viewer/editor extension.
