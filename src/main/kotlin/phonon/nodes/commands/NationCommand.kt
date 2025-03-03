@@ -352,45 +352,45 @@ public class NationCommand : CommandExecutor, TabCompleter {
 
         val leader = nation.capital.leader
         if ( resident !== leader ) {
-            Message.error(player, "Only nation leaders can invite new towns")
+            Message.error(player, "Solo los líderes de la nación pueden invitar towns")
             return
         }
 
         if ( args.size < 2 ) {
-            Message.print(player, "Usage: ${ChatColor.WHITE}/nation invite [town]")
+            Message.print(player, "Uso: ${ChatColor.WHITE}/nation invite [town]")
             return
         }
 
         val inviteeTown = Nodes.getTownFromName(args[1])
         if ( inviteeTown == null) {
-            Message.error(player, "That town does not exist")
+            Message.error(player, "Esa town no existe")
             return
         }
         if ( inviteeTown.nation != null ) {
-            Message.error(player, "That town already belongs to another nation")
+            Message.error(player, "Esa town pertenece a otra nación")
             return
         }
 
         val inviteeResident = inviteeTown.leader
         if ( inviteeResident == null ) {
-            Message.error(player, "That town has no leader (?)")
+            Message.error(player, "Esa town no tiene líder (?)")
             return
         }
         val invitee: Player? = Bukkit.getPlayer(inviteeResident.uuid)
         if ( invitee == null) {
-            Message.error(player, "That town's leader is not online")
+            Message.error(player, "El líder de la town no está online")
             return
         }
 
-        Message.print(player, "${inviteeTown.name} has been invited to your nation.")
-        Message.print(invitee, "Your town has been invited to join the nation of ${nation.name} by ${player.name}. \nType \"/n accept\" to agree or \"/n reject\" to refuse the offer.")
+        Message.print(player, "${inviteeTown.name} fue invitado a tú nación.")
+        Message.print(invitee, "Tú town ha sido invitada a la nación ${nation.name} por ${player.name}. \nEscribe \"/n accept\" para aceptar o \"/n reject\" para rechazar la oferta.")
         inviteeResident.invitingNation = nation
         inviteeResident.invitingTown = inviteeTown
         inviteeResident.invitingPlayer = player
         inviteeResident.inviteThread = Bukkit.getAsyncScheduler().runDelayed(Nodes.plugin!!, {
                 Bukkit.getGlobalRegionScheduler().run(Nodes.plugin!!) {
                     if (inviteeResident.invitingPlayer == player) {
-                        Message.print(player, "${invitee.name} didn't respond to your nation invitation!")
+                        Message.print(player, "¡${invitee.name} no ha respondido a la invitación de tú nación!")
                         inviteeResident.invitingNation = null
                         inviteeResident.invitingTown = null
                         inviteeResident.invitingPlayer = null
@@ -411,17 +411,17 @@ public class NationCommand : CommandExecutor, TabCompleter {
         }
 
         if ( resident.town != resident.invitingTown ) {
-            Message.error(player, "Invite invalid")
+            Message.error(player, "Invitación inválida")
             return
         }
 
         if ( resident.invitingNation == null ) {
-            Message.error(player,"You have not been invited to any nation")
+            Message.error(player,"No has sido invitado a ninguna nación")
             return
         }
 
-        Message.print(player,"${resident.town?.name} is now a jurisdiction of ${resident.invitingNation?.name}!")
-        Message.print(resident.invitingPlayer, "${resident.town?.name} has accepted your authority!")
+        Message.print(player,"${resident.town?.name} está ahora en la jurisdicción de ${resident.invitingNation?.name}!")
+        Message.print(resident.invitingPlayer, "¡${resident.town?.name} ha aceptado tú autoridad!")
 
         Nodes.addTownToNation(resident.invitingNation!!,resident.town!!)
         resident.invitingNation = null
@@ -441,12 +441,12 @@ public class NationCommand : CommandExecutor, TabCompleter {
         }
 
         if ( resident.invitingNation == null ) {
-            Message.error(player,"You have not been invited to any nation")
+            Message.error(player,"No has sido invitado a ninguna nación")
             return
         }
 
-        Message.print(player,"You have rejected the invitation to ${resident.invitingNation?.name}!")
-        Message.print(resident.invitingPlayer, "${resident.town?.name} has rejected your authority!")
+        Message.print(player,"¡Has rechazado la invitación a ${resident.invitingNation?.name}!")
+        Message.print(resident.invitingPlayer, "¡${resident.town?.name} ha rechazado tú autoridad!")
 
         resident.invitingNation = null
         resident.invitingTown = null
@@ -459,7 +459,7 @@ public class NationCommand : CommandExecutor, TabCompleter {
      * View list of all established nations and their towns
      */
     private fun listNations(player: Player?) {
-        Message.print(player, "${ChatColor.BOLD}Nation - Population - Towns")
+        Message.print(player, "${ChatColor.BOLD}Nación - Población - Towns")
         val nationsList = ArrayList(Nodes.nations.values)
         nationsList.sortByDescending { it.residents.size }
         for ( n in nationsList ) {
@@ -487,7 +487,7 @@ public class NationCommand : CommandExecutor, TabCompleter {
         }
 
         if ( args.size < 4 ) {
-            Message.print(player, "Usage: ${ChatColor.WHITE}/nation color [r] [g] [b]")
+            Message.print(player, "Uso: ${ChatColor.WHITE}/nation color [r] [g] [b]")
             return
         }
 
@@ -504,7 +504,7 @@ public class NationCommand : CommandExecutor, TabCompleter {
 
         val leader = nation.capital.leader
         if ( resident !== leader ) {
-            Message.error(player,"Only nation leaders can do this")
+            Message.error(player,"Solo los líderes de nación pueden hacer esto")
             return
         }
 
@@ -515,10 +515,10 @@ public class NationCommand : CommandExecutor, TabCompleter {
             val b = args[3].toInt().coerceIn(0, 255)
             
             Nodes.setNationColor(nation, r, g, b)
-            Message.print(player, "Nation color set: ${ChatColor.WHITE}${r} ${g} ${b}")
+            Message.print(player, "Color de nación: ${ChatColor.WHITE}${r} ${g} ${b}")
         }
         catch (e: NumberFormatException) {
-            Message.error(player, "Invalid color (must be [r] [g] [b] in range 0-255)")
+            Message.error(player, "Color inválido (debe de ser [r] [g] [b] en un rango entre 0-255)")
         }
     }
 
@@ -537,7 +537,7 @@ public class NationCommand : CommandExecutor, TabCompleter {
         }
 
         if ( args.size == 1 ) {
-            Message.print(player, "Usage: /n rename [new_name]")
+            Message.print(player, "Uso: /n rename [nuevo_nombre]")
             return
         }
 
@@ -548,28 +548,28 @@ public class NationCommand : CommandExecutor, TabCompleter {
         }
 
         if ( resident != nation.capital.leader ) {
-            Message.error(player, "Only nation leaders can do this")
+            Message.error(player, "Solo los líderes pueden hacer esto")
             return
         }
 
         val name = args[1]
         if ( !stringInputIsValid(name) ) {
-            Message.error(player, "Invalid nation name")
+            Message.error(player, "Nombre de nación inválida")
             return
         }
 
         if ( nation.name.lowercase() == args[1].lowercase() ) {
-            Message.error(player, "Your nation is already named ${nation.name}")
+            Message.error(player, "Tú nación ya se llama ${nation.name}")
             return
         }
 
         if ( Nodes.nations.containsKey(args[1]) ) {
-            Message.error(player, "There is already a nation with this name")
+            Message.error(player, "Ya hay una nación con este nombre")
             return
         }
 
         Nodes.renameNation(nation,name)
-        Message.print(player, "Nation renamed to ${nation.name}!")
+        Message.print(player, "Nación renombrada a ${nation.name}!")
     }
 
     /**
@@ -597,12 +597,12 @@ public class NationCommand : CommandExecutor, TabCompleter {
             nation = resident.nation
         } else if ( args.size == 2 ) {
             if ( !Nodes.nations.containsKey(args[1]) ) {
-                Message.error(player, "That nation does not exist")
+                Message.error(player, "Esa nación no existe")
                 return
             }
             nation = Nodes.getNationFromName(args[1])
         } else {
-            Message.error(player, "Usage: /nation online [nation]")
+            Message.error(player, "Uso: /nation online [nation]")
             return
         }
 
@@ -612,7 +612,7 @@ public class NationCommand : CommandExecutor, TabCompleter {
 
         val numPlayersOnline = nation.playersOnline.size
         val playersOnline = nation.playersOnline.map({p -> p.name}).joinToString(", ")
-        Message.print(player, "Players online in nation ${nation.name} [${numPlayersOnline}]: ${ChatColor.WHITE}${playersOnline}")
+        Message.print(player, "Jugadores online en ${nation.name} [${numPlayersOnline}]: ${ChatColor.WHITE}${playersOnline}")
     }
 
     /**
@@ -638,12 +638,12 @@ public class NationCommand : CommandExecutor, TabCompleter {
             nation = resident.nation
         } else if ( args.size == 2 ) {
             if ( !Nodes.nations.containsKey(args[1]) ) {
-                Message.error(player, "That nation does not exist")
+                Message.error(player, "Esa nación no existe")
                 return
             }
             nation = Nodes.getNationFromName(args[1])
         } else {
-            Message.error(player, "Usage: /nation info [nation]")
+            Message.error(player, "Uso: /nation info [nación]")
             return
         }
 
@@ -660,12 +660,12 @@ public class NationCommand : CommandExecutor, TabCompleter {
         }
 
         if ( !Config.allowNationTownSpawn ) {
-            Message.error(player, "Server has disabled teleporting to other towns in your nation")
+            Message.error(player, "El servidor ha deshabilitado el TP a otras towns en tú nación")
             return
         }
 
         if ( args.size < 2 ) {
-            Message.error(player, "Usage: /nation spawn [town]")
+            Message.error(player, "Uso: /nation spawn [town]")
             return
         }
 
@@ -676,37 +676,37 @@ public class NationCommand : CommandExecutor, TabCompleter {
 
         val town = resident.town
         if ( town === null ) {
-            Message.error(player, "You are not a member of a town")
+            Message.error(player, "No eres miembro de una town")
             return
         }
 
         val nation = town.nation
         if ( nation === null ) {
-            Message.error(player, "You are not a member of a nation")
+            Message.error(player, "No eres miembro de una nación")
             return
         }
 
         val destinationName = args[1]
         val destinationTown = Nodes.getTownFromName(destinationName)
         if ( destinationTown === null ) {
-            Message.error(player, "Destination town does not exist: ${destinationName}")
+            Message.error(player, "La town destinataria no existe: ${destinationName}")
             return
         }
 
         if ( destinationTown === town ) {
-            Message.error(player, "Destination town is your town, use /town spawn")
+            Message.error(player, "La town destinataria es tú town, usa /town spawn")
             return
         }
 
         val destinationNation = destinationTown.nation
         if ( nation !== destinationNation ) {
-            Message.error(player, "Destination town is not in the same nation: ${destinationName}")
+            Message.error(player, "La town destinataria no está en la misma nación: ${destinationName}")
             return
         }
         
         // already teleporting
         if ( resident.teleportThread !== null ) {
-            Message.error(player, "You are already trying to teleport")
+            Message.error(player, "¡Ya estás intentando teletransportarte!")
             return
         }
 
@@ -716,7 +716,7 @@ public class NationCommand : CommandExecutor, TabCompleter {
             for ( (material, amount) in Config.nationTownTeleportCost ) {
                 val items = ItemStack(material)
                 if ( !inventory.containsAtLeast(items, amount) ) {
-                    Message.error(player, "You do not have required payment to teleport: ${Config.nationTownTeleportCostString}")
+                    Message.error(player, "No tienes el pagamiento requerido para teletransportarte: ${Config.nationTownTeleportCostString}")
                     return
                 }
             }
@@ -745,7 +745,7 @@ public class NationCommand : CommandExecutor, TabCompleter {
         }, teleportTimerTicks * 50, TimeUnit.MILLISECONDS)
 
         if ( teleportTimerTicks > 0 ) {
-            Message.print(player, "Teleporting to ${destinationName} in ${Config.townSpawnTime} seconds. Don't move...")
+            Message.print(player, "Teletransportando a ${destinationName} en ${Config.townSpawnTime} segundos. No te muevas...")
         }
     }
 }
