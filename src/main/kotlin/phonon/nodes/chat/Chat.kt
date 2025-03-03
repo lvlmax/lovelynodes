@@ -176,14 +176,14 @@ public object Chat {
         // format player name
         val formattedResidentName = formatResidentName(resident)
 
-        return "${colorNation}[Nation] ${formattedResidentName}${colorNation}: %2\$s"
+        return "${colorNation}[Nación] ${formattedResidentName}${colorNation}: %2\$s"
     }
     
     public fun formatMsgAlly(resident: Resident): String {
         // format player name
         val formattedResidentName = formatResidentName(resident)
 
-        return "${colorAlly}[Ally] ${formattedResidentName}${colorAlly}: %2\$s"
+        return "${colorAlly}[Aliado] ${formattedResidentName}${colorAlly}: %2\$s"
     }
 
 }
