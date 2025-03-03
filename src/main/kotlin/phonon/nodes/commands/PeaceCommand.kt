@@ -54,12 +54,12 @@ public class PeaceCommand : CommandExecutor, TabCompleter {
 
         val nation = town.nation
         if ( nation !== null && town !== nation.capital ) {
-            Message.error(player, "Only the nation's capital town can offer/accept peace")
+            Message.error(player, "Solamente la town capital de la nación puede ofrecer/proponer paz")
             return true
         }
 
         if ( resident !== town.leader && !town.officers.contains(resident) ) {
-            Message.error(player, "Only the leader and officers can offer/accept peace")
+            Message.error(player, "Solo el lider y los officers pueden ofrecer paz")
             return true
         }
 
@@ -77,9 +77,9 @@ public class PeaceCommand : CommandExecutor, TabCompleter {
     }
 
     private fun printHelp(sender: CommandSender) {
-        Message.print(sender, "[Nodes] Peace commands:")
-        Message.print(sender, "/peace [town]${ChatColor.WHITE}: Offer/accept peace with town")
-        Message.print(sender, "/peace [nation]${ChatColor.WHITE}: Offer/accept peace with nation")
+        Message.print(sender, "[Nodes] Comandos de paz:")
+        Message.print(sender, "/peace [town]${ChatColor.WHITE}: Ofrecer/aceptar paz con una town")
+        Message.print(sender, "/peace [nación]${ChatColor.WHITE}: Ofrecer/aceptar paz con una nación")
         return
     }
 
@@ -107,13 +107,13 @@ public class PeaceCommand : CommandExecutor, TabCompleter {
             return
         }
         
-        Message.error(player, "Town or nation \"${target}\" does not exist")
+        Message.error(player, "Town o nación \"${target}\" no existe")
     }
 
     // offer peace: open treaty gui dialog
     private fun offerPeace(player: Player, town: Town, enemy: Town, townNation: Nation?, enemyNation: Nation?) {
         if ( town === enemy ) {
-            Message.error(player, "You cannot make a peace treaty with yourself.")
+            Message.error(player, "No puedes hacer un tratado de paz contigo mismo.")
             return
         }
 
@@ -121,7 +121,7 @@ public class PeaceCommand : CommandExecutor, TabCompleter {
         val result = Treaty.show(player, town, enemy)
         if ( result === false ) { // print messages indicating new treaty occuring
             val enemyName = if ( enemyNation !== null ) {
-                "nation ${enemyNation.name}"
+                "nación ${enemyNation.name}"
             }
             else {
                 "town ${enemy.name}"
@@ -139,7 +139,7 @@ public class PeaceCommand : CommandExecutor, TabCompleter {
                 for ( r in townNation.residents ) {
                     val p = r.player()
                     if ( p !== null ) {
-                        Message.print(p, "Your nation is negotiating peace with ${enemyName}")
+                        Message.print(p, "Tú nación está negociando la paz con ${enemyName}")
                     }
                 }
             }
@@ -147,7 +147,7 @@ public class PeaceCommand : CommandExecutor, TabCompleter {
                 for ( r in town.residents ) {
                     val p = r.player()
                     if ( p !== null ) {
-                        Message.print(p, "Your town is negotiating peace with ${enemyName}")
+                        Message.print(p, "Tú town está negociando la paz con ${enemyName}")
                     }
                 }
             }
@@ -158,7 +158,7 @@ public class PeaceCommand : CommandExecutor, TabCompleter {
                 for ( r in enemyNation.residents ) {
                     val p = r.player()
                     if ( p !== null ) {
-                        Message.print(p, "${initiatorName} is offering your nation a peace treaty, use \"/peace ${initiatorName}\" to negotiate")
+                        Message.print(p, "${initiatorName} está ofreciendo un tratado de paz, usa \"/peace ${initiatorName}\" para negociar")
                     }
                 }
             }
@@ -166,7 +166,7 @@ public class PeaceCommand : CommandExecutor, TabCompleter {
                 for ( r in enemy.residents ) {
                     val p = r.player()
                     if ( p !== null ) {
-                        Message.print(p, "${initiatorName} is offering your town a peace treaty, use \"/peace ${initiatorName}\" to negotiate")
+                        Message.print(p, "${initiatorName} está ofreciendo un tratado de paz, usa \"/peace ${initiatorName}\" para negociar")
                     }
                 }
             }
