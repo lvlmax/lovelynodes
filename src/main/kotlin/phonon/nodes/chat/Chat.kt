@@ -183,7 +183,7 @@ public object Chat {
         // format player name
         val formattedResidentName = formatResidentName(resident)
 
-        return "${colorAlly}[Aliado] ${formattedResidentName}${colorAlly}: %2\$s"
+        return "${colorAlly}[Aliados] ${formattedResidentName}${colorAlly}: %2\$s"
     }
 
 }
