@@ -54,12 +54,12 @@ public class AllyCommand : CommandExecutor, TabCompleter {
 
         val nation = town.nation
         if ( nation !== null && town !== nation.capital ) {
-            Message.error(player, "Only the nation's capital town can offer/accept alliances")
+            Message.error(player, "Solamente la town capital de la nación puede ofrecer/aceptar alianzas")
             return true
         }
 
         if ( resident !== town.leader && !town.officers.contains(resident) ) {
-            Message.error(player, "Only the leader and officers can offer/accept alliances")
+            Message.error(player, "Solamente el líder o los officers pueden ofrecer/aceptar alianzas.")
             return true
         }
 
@@ -109,13 +109,13 @@ public class AllyCommand : CommandExecutor, TabCompleter {
             return
         }
         
-        Message.error(player, "Town or nation \"${target}\" does not exist")
+        Message.error(player, "¡Esa town o nación \"${target}\" no existe!")
     }
 
     // offer alliance, other side must offer alliance to accept
     private fun offerAlliance(player: Player, town: Town, other: Town, townNation: Nation?, otherNation: Nation?) {
         if ( town === other ) {
-            Message.error(player, "You cannot make a peace treaty with yourself.")
+            Message.error(player, "No puedes hacer un tratado de paz contigo mismo.")
             return
         }
         
@@ -137,7 +137,7 @@ public class AllyCommand : CommandExecutor, TabCompleter {
 
                 // message that alliance is being requested
                 AllianceRequest.NEW -> {
-                    val thisSideMsg = "You are offering an alliance to ${otherSideName}"
+                    val thisSideMsg = "Estás ofreciendo alianza a ${otherSideName}"
                     for ( r in town.residents ) {
                         val player = r.player()
                         if ( player !== null ) {
@@ -145,7 +145,7 @@ public class AllyCommand : CommandExecutor, TabCompleter {
                         }
                     }
 
-                    val otherSideMsg = "${thisSideName} is offering an alliance, use \"/ally ${thisSideName}\" to accept"
+                    val otherSideMsg = "${thisSideName} está ofreciendo una alianza, usa \"/ally ${thisSideName}\" para aceptar"
                     for ( r in other.residents ) {
                         val player = r.player()
                         if ( player !== null ) {
@@ -156,7 +156,7 @@ public class AllyCommand : CommandExecutor, TabCompleter {
 
                 // broadcast that alliance was created
                 AllianceRequest.ACCEPTED -> {
-                    Message.broadcast("${thisSideName} has formed an alliance with ${otherSideName}")
+                    Message.broadcast("¡${thisSideName} ha formado una alianza con ${otherSideName}!")
                 }
 
                 null -> TODO()
