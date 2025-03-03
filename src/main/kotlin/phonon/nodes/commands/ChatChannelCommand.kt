@@ -23,10 +23,10 @@ private fun toggleChatMode(player: Player, resident: Resident, chatMode: ChatMod
     val newChatMode = Nodes.toggleChatMode(resident, chatMode)
     
     when ( newChatMode ) {
-        ChatMode.GLOBAL -> Message.print(player, "${ChatColor.BOLD}Now talking in global chat")
-        ChatMode.TOWN -> Message.print(player, "${ChatColor.DARK_AQUA}${ChatColor.BOLD}Now talking in town chat")
-        ChatMode.NATION -> Message.print(player, "${ChatColor.GOLD}${ChatColor.BOLD}Now talking in nation chat")
-        ChatMode.ALLY -> Message.print(player, "${ChatColor.GREEN}${ChatColor.BOLD}Now talking in ally chat")
+        ChatMode.GLOBAL -> Message.print(player, "${ChatColor.BOLD}Ahora estás hablando en el chat general.")
+        ChatMode.TOWN -> Message.print(player, "${ChatColor.DARK_AQUA}${ChatColor.BOLD}Ahora estás hablando en el chat de tú town.")
+        ChatMode.NATION -> Message.print(player, "${ChatColor.GOLD}${ChatColor.BOLD}Ahora estás hablando en el chat de la nación.")
+        ChatMode.ALLY -> Message.print(player, "${ChatColor.GREEN}${ChatColor.BOLD}Ahora estás hablando en el chat de aliados.")
     }
 
 }
@@ -74,7 +74,7 @@ public class GlobalChatCommand : CommandExecutor, TabCompleter {
                 "unmute" -> enableChannel(sender)
                 "leave" -> disableChannel(sender)
                 "mute" -> disableChannel(sender)
-                else -> { Message.error(player, "Invalid command") }
+                else -> { Message.error(player, "Comando Inválido") }
             }
         }
 
@@ -91,12 +91,12 @@ public class GlobalChatCommand : CommandExecutor, TabCompleter {
 
     private fun enableChannel(player: Player) {
         Chat.enableGlobalChat(player)
-        Message.print(player, "Enabled global chat")
+        Message.print(player, "Chat global habilitado")
     }
 
     private fun disableChannel(player: Player) {
         Chat.disableGlobalChat(player)
-        Message.print(player, "Muted global chat")
+        Message.print(player, "Chat global silenciado")
     }
 }
 
@@ -126,7 +126,7 @@ public class TownChatCommand : CommandExecutor, TabCompleter {
             // parse subcommand
             when ( args[0].lowercase() ) {
                 "leave" -> leaveChannel(sender)
-                else -> { Message.error(player, "Invalid command") }
+                else -> { Message.error(player, "Comando Inválido") }
             }
         }
 
@@ -168,7 +168,7 @@ public class NationChatCommand : CommandExecutor, TabCompleter {
             // parse subcommand
             when ( args[0].lowercase() ) {
                 "leave" -> leaveChannel(sender)
-                else -> { Message.error(player, "Invalid command") }
+                else -> { Message.error(player, "Comando Inválido") }
             }
         }
 
@@ -210,7 +210,7 @@ public class AllyChatCommand : CommandExecutor, TabCompleter {
             // parse subcommand
             when ( args[0].lowercase() ) {
                 "leave" -> leaveChannel(sender)
-                else -> { Message.error(player, "Invalid command") }
+                else -> { Message.error(player, "Comando Inválido") }
             }
         }
 
