@@ -25,6 +25,7 @@ import java.util.concurrent.TimeUnit
 // list of all subcommands, used for onTabComplete
 private val subcommands: List<String> = listOf(
     "help",
+    "ayuda",
     "create",
     "new",
     "delete",
@@ -57,7 +58,7 @@ public class NationCommand : CommandExecutor, TabCompleter {
                 if ( resident != null && resident.nation != null ) {
                     resident.nation!!.printInfo(player)
                 }
-                Message.print(player, "Use \"/nation help\" to view commands")
+                Message.print(player, "Usa \"/nation ayuda\" para ver los comandos")
             }
             return true
         }
@@ -65,6 +66,7 @@ public class NationCommand : CommandExecutor, TabCompleter {
         // parse subcommand
         when ( args[0].lowercase() ) {
             "help" -> printHelp(sender)
+            "ayuda" -> printHelp(sender)
             "create" -> createNation(player, args)
             "new" -> createNation(player, args)
             "delete" -> deleteNation(player)
@@ -81,7 +83,7 @@ public class NationCommand : CommandExecutor, TabCompleter {
             "online" -> getOnline(player, args)
             "info" -> getInfo(player, args)
             "spawn" -> goToNationTownSpawn(player, args)
-            else -> { Message.error(player, "Invalid command, use /nation help") }
+            else -> { Message.error(player, "Comando Inválido, usa /nation ayuda") }
         }
 
         return true
