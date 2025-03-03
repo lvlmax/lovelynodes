@@ -32,7 +32,6 @@ private val subcommands: List<String> = listOf(
     "deny",
     "reject",
     "list",
-    "rename",
     "online",
     "info",
     "spawn"
@@ -205,24 +204,24 @@ public class NationCommand : CommandExecutor, TabCompleter {
 
         val nation = resident.nation
         if ( nation == null ) {
-            Message.error(player,"You do not belong to a nation")
+            Message.error(player,"No perteneces a una nación")
             return
         }
 
         val leader = nation.capital.leader
         if ( resident !== leader ) {
-            Message.error(player,"You are not the nation leader")
+            Message.error(player,"No eres el líder de la nación")
             return
         }
 
         // do not allow during war
         if ( Nodes.war.enabled == true ) {
-            Message.error(player, "Cannot delete your nation during war")
+            Message.error(player, "No puedes borrar tú nación durante guerra")
             return
         }
         
         Nodes.destroyNation(nation)
-        Message.broadcast("${ChatColor.DARK_RED}${ChatColor.BOLD}Nation ${nation.name} has been destroyed")
+        Message.broadcast("${ChatColor.DARK_RED}${ChatColor.BOLD}La nación de ${nation.name} ha capitulado")
     }
 
     /**
@@ -242,30 +241,30 @@ public class NationCommand : CommandExecutor, TabCompleter {
 
         val town = resident.town
         if ( town == null ) {
-            Message.error(player,"You do not belong to a town")
+            Message.error(player,"No perteneces a una town")
             return
         }
 
         val nation = town.nation
         if ( nation == null ) {
-            Message.error(player,"You do not belong to a nation")
+            Message.error(player,"No perteneces a una nación")
             return
         }
 
         if ( town === nation.capital ) {
-            Message.error(player, "The nation's capital cannot leave (use /n delete)")
+            Message.error(player, "La capital de la nación no puede irse (usa /n delete)")
             return
         }
 
         val leader = town.leader
         if ( resident !== leader ) {
-            Message.error(player,"You are not the town leader")
+            Message.error(player,"Tú no eres el líder de la nación")
             return
         }
 
         // do not allow during war
         if ( Nodes.war.enabled == true && Config.canLeaveNationDuringWar == false ) {
-            Message.error(player, "Cannot leave your nation during war")
+            Message.error(player, "No puedes abandonar a tú nación durante la guerra")
             return
         }
         
@@ -275,7 +274,7 @@ public class NationCommand : CommandExecutor, TabCompleter {
         for ( r in town.residents ) {
             val p = r.player()
             if ( p != null ) {
-                Message.print(p, "${ChatColor.BOLD}${ChatColor.DARK_RED}Your town has left nation ${ChatColor.WHITE}${nation.name}")
+                Message.print(p, "${ChatColor.BOLD}${ChatColor.DARK_RED}Tú town ha abandonado la nación ${ChatColor.WHITE}${nation.name}")
             }
         }
     }
@@ -296,39 +295,39 @@ public class NationCommand : CommandExecutor, TabCompleter {
 
         val nation = resident.nation
         if ( nation == null ) {
-            Message.error(player,"You do not belong to a nation")
+            Message.error(player,"No perteneces a una nación")
             return
         }
 
         val leader = nation.capital.leader
         if ( resident !== leader ) {
-            Message.error(player, "Only nation leaders can change the capital town")
+            Message.error(player, "Solo los líderes de la nación pueden cambiar la capital")
             return
         }
 
         if ( args.size < 2 ) {
-            Message.print(player, "Usage: ${ChatColor.WHITE}/nation capital [town]")
+            Message.print(player, "Uso: ${ChatColor.WHITE}/nation capital [town]")
             return
         }
 
         val newCapital = Nodes.getTownFromName(args[1])
         if ( newCapital === null) {
-            Message.error(player, "That town does not exist")
+            Message.error(player, "Esa town no existe")
             return
         }
         if ( newCapital.nation !== nation ) {
-            Message.error(player, "That town does not belong to this nation")
+            Message.error(player, "Esa town no pertenece a esta nación")
             return
         }
         if ( newCapital === nation.capital ) {
-            Message.error(player, "This town is already the nation capital")
+            Message.error(player, "Esa town ya es la capital de la nación")
             return
         }
 
         Nodes.setNationCapital(nation, newCapital)
         
         // broadcast message
-        Message.broadcast("${ChatColor.BOLD}${newCapital.name} is now the capital of ${nation.name}")
+        Message.broadcast("${ChatColor.BOLD}${newCapital.name} ahora es la capital de ${nation.name}")
     }
 
     /**
@@ -347,7 +346,7 @@ public class NationCommand : CommandExecutor, TabCompleter {
 
         val nation = resident.nation
         if ( nation == null ) {
-            Message.error(player,"You do not belong to a nation")
+            Message.error(player,"No perteneces a una nación")
             return
         }
 
@@ -544,7 +543,7 @@ public class NationCommand : CommandExecutor, TabCompleter {
 
         val nation = resident.nation
         if ( nation == null ) {
-            Message.error(player, "You do not belong to a nation")
+            Message.error(player, "No perteneces a una nación")
             return
         }
 
@@ -592,7 +591,7 @@ public class NationCommand : CommandExecutor, TabCompleter {
         var nation: Nation? = null
         if ( args.size == 1 ) {
             if ( resident.nation == null ) {
-                Message.error(player, "You do not belong to a nation")
+                Message.error(player, "No perteneces a una nación")
                 return
             }
             nation = resident.nation
@@ -633,7 +632,7 @@ public class NationCommand : CommandExecutor, TabCompleter {
         var nation: Nation? = null
         if ( args.size == 1 ) {
             if ( resident.nation == null ) {
-                Message.error(player, "You do not belong to a nation")
+                Message.error(player, "No perteneces a una nación")
                 return
             }
             nation = resident.nation
