@@ -27,9 +27,7 @@ private val subcommands: List<String> = listOf(
     "help",
     "ayuda",
     "create",
-    "new",
     "delete",
-    "disband",
     "leave",
     "capital",
     "invite",
@@ -37,7 +35,6 @@ private val subcommands: List<String> = listOf(
     "deny",
     "reject",
     "list",
-    "color",
     "rename",
     "online",
     "info",
@@ -68,9 +65,7 @@ public class NationCommand : CommandExecutor, TabCompleter {
             "help" -> printHelp(sender)
             "ayuda" -> printHelp(sender)
             "create" -> createNation(player, args)
-            "new" -> createNation(player, args)
             "delete" -> deleteNation(player)
-            "disband" -> deleteNation(player)
             "leave" -> leaveNation(player)
             "capital" -> setCapital(player, args)
             "invite" -> inviteToNation(player, args)
@@ -78,7 +73,6 @@ public class NationCommand : CommandExecutor, TabCompleter {
             "deny" -> deny(player)
             "reject" -> deny(player)
             "list" -> listNations(player)
-            "color" -> setColor(player, args)
             "rename" -> renameNation(player, args)
             "online" -> getOnline(player, args)
             "info" -> getInfo(player, args)
