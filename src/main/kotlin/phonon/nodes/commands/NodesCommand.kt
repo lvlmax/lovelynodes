@@ -22,12 +22,16 @@ import phonon.nodes.utils.string.filterTown
 // list of all subcommands, used for onTabComplete
 private val subcommands: List<String> = listOf(
     "help",
+    "ayuda",
     "resource",
     "territory",
+    "territorio",
     "town",
     "nation",
+    "nacion",
     "player",
-    "war"
+    "war",
+    "guerra"
 )
 
 public class NodesCommand : CommandExecutor, TabCompleter {
@@ -36,17 +40,17 @@ public class NodesCommand : CommandExecutor, TabCompleter {
             
         // no args, print plugin info
         if ( args.size == 0 ) {
-            Message.print(sender, "${ChatColor.BOLD}Nodes ${Nodes.version}")
+            Message.print(sender, "${ChatColor.GOLD}${ChatColor.BOLD}LOVELYNODES ${ChatColor.WHITE}${Nodes.version}")
 
             // print number of resource nodes and territories loaded
-            Message.print(sender, "World info:")
+            Message.print(sender, "Información del mundo:")
             Message.print(sender, "- Resource Nodes${ChatColor.WHITE}: ${Nodes.getResourceNodeCount()}")
-            Message.print(sender, "- Territories${ChatColor.WHITE}: ${Nodes.getTerritoryCount()}")
-            Message.print(sender, "- Residents${ChatColor.WHITE}: ${Nodes.getResidentCount()}")
+            Message.print(sender, "- Territorios${ChatColor.WHITE}: ${Nodes.getTerritoryCount()}")
+            Message.print(sender, "- Habitantes${ChatColor.WHITE}: ${Nodes.getResidentCount()}")
             Message.print(sender, "- Towns${ChatColor.WHITE}: ${Nodes.getTownCount()}")
-            Message.print(sender, "- Nations${ChatColor.WHITE}: ${Nodes.getNationCount()}")
+            Message.print(sender, "- Naciones${ChatColor.WHITE}: ${Nodes.getNationCount()}")
 
-            Message.print(sender, "Use \"/nodes help\" to see subcommands")
+            Message.print(sender, "Usa \"/nodes ayuda\" para ver los subcomandos")
 
             return true
         }
@@ -54,16 +58,21 @@ public class NodesCommand : CommandExecutor, TabCompleter {
         // parse subcommand
         when ( args[0].lowercase() ) {
             "help" -> printHelp(sender)
+            "ayuda" -> printHelp(sender)
             "resource" -> printResourceNodeInfo(sender, args)
             "territory" -> printTerritoryInfo(sender, args)
+            "territorio" -> printTerritoryInfo(sender, args)
             "town" -> printTownInfo(sender, args)
             "towns" -> printTownInfo(sender, args)
             "nation" -> printNationInfo(sender, args)
+            "nacion" -> printNationInfo(sender, args)
+            "naciones" -> printNationInfo(sender, args)
             "nations" -> printNationInfo(sender, args)
             "player" -> printPlayerInfo(sender, args)
             "players" -> printPlayerInfo(sender, args)
             "war" -> printWarInfo(sender, args)
-            else -> { Message.error(sender, "Invalid command, use \"/nodes help\"") }
+            "guerra" -> printWarInfo(sender, args)
+            else -> { Message.error(sender, "Comando inválido, usa \"/nodes ayuda\"") }
         }
 
         return true
@@ -113,13 +122,13 @@ public class NodesCommand : CommandExecutor, TabCompleter {
      * Prints list of commands
      */
     private fun printHelp(sender: CommandSender) {
-        Message.print(sender, "${ChatColor.BOLD}[Nodes] World info commands:")
-        Message.print(sender, "/nodes resource${ChatColor.WHITE}: Get a resource node's properties")
-        Message.print(sender, "/nodes territory${ChatColor.WHITE}: Get territory info")
-        Message.print(sender, "/nodes town${ChatColor.WHITE}: Get town info")
-        Message.print(sender, "/nodes nation${ChatColor.WHITE}: Get nation info")
-        Message.print(sender, "/nodes player${ChatColor.WHITE}: Get player info")
-        Message.print(sender, "/nodes war${ChatColor.WHITE}: Current war status")
+        Message.print(sender, "${ChatColor.BOLD}[Nodes] Comandos de información del mundo:")
+        Message.print(sender, "/nodes resource${ChatColor.WHITE}: Propiedades de los recursos de un node")
+        Message.print(sender, "/nodes territorio${ChatColor.WHITE}: Info de un territorio")
+        Message.print(sender, "/nodes town${ChatColor.WHITE}: Info de la town")
+        Message.print(sender, "/nodes nacion${ChatColor.WHITE}: Info de la nación")
+        Message.print(sender, "/nodes player${ChatColor.WHITE}: Info de un jugador")
+        Message.print(sender, "/nodes guerra${ChatColor.WHITE}: Estado de guerra actual")
         return
     }
 
@@ -132,11 +141,11 @@ public class NodesCommand : CommandExecutor, TabCompleter {
      */
     private fun printResourceNodeInfo(sender: CommandSender, args: Array<String>) {
         if ( args.size < 2 ) {
-            Message.print(sender, "${ChatColor.BOLD}Resource nodes:")
+            Message.print(sender, "${ChatColor.BOLD}Recursos del node:")
             for ( v in Nodes.resourceNodes.values ) {
                 Message.print(sender, "- ${v.name}")
             }
-            Message.print(sender, "Use \"/nodes resource [name]\" to get more info")
+            Message.print(sender, "Usa \"/nodes resource [nombre]\" para obtener más info")
         }
         else {
             // parse resource node name
@@ -146,7 +155,7 @@ public class NodesCommand : CommandExecutor, TabCompleter {
                 resource.printInfo(sender)
             }
             else {
-                Message.error(sender, "Invalid resource node \"${name}\"")
+                Message.error(sender, "Recursos del node \"${name}\" inválido")
             }
         }
        
@@ -168,11 +177,11 @@ public class NodesCommand : CommandExecutor, TabCompleter {
                 val loc = player.getLocation()
                 val getTerritory = Nodes.getTerritoryFromBlock(loc.x.toInt(), loc.z.toInt())
 
-                Message.print(sender, "Territory at current location:")
-                Message.print(sender, "(Other usage: \"/nodes territory [id]\")")
+                Message.print(sender, "Territorio en localización actual:")
+                Message.print(sender, "(Otro uso: \"/nodes territorio [id]\")")
 
                 if ( getTerritory == null ) {
-                    Message.error(sender, "No territory at current location")
+                    Message.error(sender, "No estás en un territorio actualmente")
                     return
                 }
 
@@ -180,8 +189,8 @@ public class NodesCommand : CommandExecutor, TabCompleter {
             }
             // console user, just print territory count
             else {
-                Message.print(sender, "Territories: ${Nodes.getTerritoryCount()}")
-                Message.print(sender, "Usage: \"/nodes territory [id]\"")
+                Message.print(sender, "Territorios: ${Nodes.getTerritoryCount()}")
+                Message.print(sender, "Uso: \"/nodes territorio [id]\"")
                 return
             }
         }
@@ -189,7 +198,7 @@ public class NodesCommand : CommandExecutor, TabCompleter {
             // try parse input as id, then try to get territory with that id
             val getTerritory = args[1].toIntOrNull()?.let { id -> Nodes.territories[TerritoryId(id)] }
             if ( getTerritory == null ) {
-                Message.error(sender, "Invalid territory id \"${args[1]}\"")
+                Message.error(sender, "ID de territorio inválido \"${args[1]}\"")
                 return
             }
 
@@ -211,15 +220,15 @@ public class NodesCommand : CommandExecutor, TabCompleter {
     private fun printTownInfo(sender: CommandSender, args: Array<String>) {
         // print list of all towns and their player count
         if ( args.size < 2 ) {
-            Message.print(sender, "${ChatColor.BOLD}Towns (${Nodes.getTownCount()}): Showing [Players] [Territories]")
+            Message.print(sender, "${ChatColor.BOLD}Towns (${Nodes.getTownCount()}):${ChatColor.WHITE} Mostrando [Jugadores] [Territorios]")
             val towns = Nodes.towns.values.toMutableList()
             towns.sortByDescending { it.residents.size }
 
             for ( t in towns ) {
-                Message.print(sender, "- ${t.name}${ChatColor.WHITE}: ${t.residents.size}P ${t.territories.size}T")
+                Message.print(sender, " - ${t.name}${ChatColor.WHITE}: ${t.residents.size}J ${t.territories.size}T")
             }
 
-            Message.print(sender, "Use \"/nodes town [name]\" to get a town's info")
+            Message.print(sender, "Usa \"/nodes town [nombre]\" para obtener más info de una town")
         }
         // print specific town info
         else {
@@ -228,7 +237,7 @@ public class NodesCommand : CommandExecutor, TabCompleter {
                 town.printInfo(sender)
             }
             else {
-                Message.error(sender, "Invalid town name \"${args[1]}\"")
+                Message.error(sender, "Nombre de town inválido \"${args[1]}\"")
             }
         }
         
@@ -244,15 +253,15 @@ public class NodesCommand : CommandExecutor, TabCompleter {
     private fun printNationInfo(sender: CommandSender, args: Array<String>) {
         // print list of all nations and their town + player count
         if ( args.size < 2 ) {
-            Message.print(sender, "${ChatColor.BOLD}Nations (${Nodes.getNationCount()}):")
+            Message.print(sender, "${ChatColor.BOLD}Naciones (${Nodes.getNationCount()}):")
             val nations = Nodes.nations.values.toMutableList()
             nations.sortBy { it.name }
 
             for ( n in nations ) {
-                Message.print(sender, "- ${n.name}${ChatColor.WHITE}")
+                Message.print(sender, " - ${n.name}${ChatColor.WHITE}")
             }
 
-            Message.print(sender, "Use \"/nodes nation [name]\" to get a nation's info")
+            Message.print(sender, "Usa \"/nodes nacion [nombre]\" para obtener más info de una nación")
         }
         // print specific town info
         else {
@@ -261,7 +270,7 @@ public class NodesCommand : CommandExecutor, TabCompleter {
                 nation.printInfo(sender)
             }
             else {
-                Message.error(sender, "Invalid nation name \"${args[1]}\"")
+                Message.error(sender, "Nombre de nación inválido \"${args[1]}\"")
             }
         }
     }
@@ -272,7 +281,7 @@ public class NodesCommand : CommandExecutor, TabCompleter {
      */
     private fun printPlayerInfo(sender: CommandSender, args: Array<String>) {
         if ( args.size < 2 ) {
-            Message.error(sender, "Usage: \"/nodes player [name]\"")
+            Message.error(sender, "Uso: \"/nodes player [nombre]\"")
         }
         else {
             val resident = Nodes.getResidentFromName(args[1])
@@ -280,7 +289,7 @@ public class NodesCommand : CommandExecutor, TabCompleter {
                 resident.printInfo(sender)
             }
             else {
-                Message.error(sender, "Invalid player name \"${args[1]}\"")
+                Message.error(sender, "Nombre de jugador inválido \"${args[1]}\"")
             }
         }
     }
@@ -296,7 +305,7 @@ public class NodesCommand : CommandExecutor, TabCompleter {
         }
         // attempt modify war state
         else {
-            Message.error(sender, "Toggle using admin command: \"/nodesadmin war [enable|disable]\"")
+            Message.error(sender, "Habilitar usando el comando: \"/nodesadmin war [enable|disable]\"")
         }
     }
 }
