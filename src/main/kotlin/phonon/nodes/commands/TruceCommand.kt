@@ -39,7 +39,7 @@ public class TruceCommand : CommandExecutor, TabCompleter {
             
             val town = resident.town
             if ( town == null ) {
-                Message.error(player, "You have no town")
+                Message.error(player, "No estás en ninguna town")
                 return true
             }
 
@@ -53,11 +53,11 @@ public class TruceCommand : CommandExecutor, TabCompleter {
                 printTownTruces(sender, town)
 
                 if ( sender is Player ) {
-                    Message.print(sender, "Use \"/peace ${townName}\" to negotiate a treaty.")
+                    Message.print(sender, "Usa \"/peace ${townName}\" para negociar un tratado.")
                 }
             }
             else {
-                Message.error(sender, "Town \"${townName}\" does not exist")
+                Message.error(sender, "La town \"${townName}\" no existe")
             }
         }
 
@@ -76,7 +76,7 @@ public class TruceCommand : CommandExecutor, TabCompleter {
     private fun printTownTruces(sender: CommandSender, town: Town) {
         val time = System.currentTimeMillis()
 
-        Message.print(sender, "Truces with ${town.name}:")
+        Message.print(sender, "Treguas con ${town.name}:")
 
         // get truce list
         val truceList = Truce.get(town)
