@@ -26,11 +26,14 @@ import java.util.concurrent.TimeUnit
 private val subcommands: List<String> = listOf(
     "help",
     "ayuda",
-    "leave",
     "capital",
     "accept",
+    "aceptar",
+    "si",
     "deny",
-    "reject",
+    "denegar",
+    "no",
+    "rechazar",
     "list",
     "online",
     "info",
@@ -63,8 +66,12 @@ public class NationCommand : CommandExecutor, TabCompleter {
             "leave" -> leaveNation(player)
             "capital" -> setCapital(player, args)
             "accept" -> accept(player)
+            "aceptar" -> accept(player)
+            "si" -> accept(player)
             "deny" -> deny(player)
-            "reject" -> deny(player)
+            "denegar" -> deny(player)
+            "no" -> deny(player)
+            "rechazar" -> deny(player)
             "list" -> listNations(player)
             "online" -> getOnline(player, args)
             "info" -> getInfo(player, args)
@@ -125,7 +132,6 @@ public class NationCommand : CommandExecutor, TabCompleter {
 
     private fun printHelp(sender: CommandSender) {
         Message.print(sender, "${ChatColor.BOLD}[Nodes] Comandos de nación:")
-        Message.print(sender, "/nation leave${ChatColor.WHITE}: Abandonar tú nación")
         Message.print(sender, "/nation list${ChatColor.WHITE}: Lista de naciones")
         Message.print(sender, "¿Buscas los comandos de la town?${ChatColor.WHITE} Usa /town ayuda")
         return
@@ -383,7 +389,7 @@ public class NationCommand : CommandExecutor, TabCompleter {
         }
 
         Message.print(player, "${inviteeTown.name} fue invitado a tú nación.")
-        Message.print(invitee, "Tú town ha sido invitada a la nación ${nation.name} por ${player.name}. \nEscribe \"/n accept\" para aceptar o \"/n reject\" para rechazar la oferta.")
+        Message.print(invitee, "Tú town ha sido invitada a la nación ${nation.name} por ${player.name}. \nEscribe \"/n aceptar\" para aceptar o \"/n rechazar\" para rechazar la oferta.")
         inviteeResident.invitingNation = nation
         inviteeResident.invitingTown = inviteeTown
         inviteeResident.invitingPlayer = player
