@@ -54,12 +54,12 @@ public class UnallyCommand : CommandExecutor, TabCompleter {
 
         val nation = town.nation
         if ( nation !== null && town !== nation.capital ) {
-            Message.error(player, "Only the nation's capital town can offer/accept alliances")
+            Message.error(player, "Solo la town capital de la nación puede ofrecer/aceptar alianzas")
             return true
         }
 
         if ( resident !== town.leader && !town.officers.contains(resident) ) {
-            Message.error(player, "Only the leader and officers can offer/accept alliances")
+            Message.error(player, "Solo el líder y los officers pueden ofrecer/aceptar alianzas")
             return true
         }
 
@@ -77,11 +77,11 @@ public class UnallyCommand : CommandExecutor, TabCompleter {
     }
 
     private fun printHelp(sender: CommandSender) {
-        Message.print(sender, "[Nodes] Ally commands:")
+        Message.print(sender, "[Nodes] Comandos de alianzas:")
         Message.print(sender, "/ally [town]${ChatColor.WHITE}: Offer/accept alliance with town")
-        Message.print(sender, "/ally [nation]${ChatColor.WHITE}: Offer/accept alliance with nation")
+        Message.print(sender, "/ally [nación]${ChatColor.WHITE}: Offer/accept alliance with nation")
         Message.print(sender, "/unally [town]${ChatColor.WHITE}: Break alliance with town")
-        Message.print(sender, "/unally [nation]${ChatColor.WHITE}: Break alliance with nation")
+        Message.print(sender, "/unally [nación]${ChatColor.WHITE}: Break alliance with nation")
         return
     }
 
