@@ -78,10 +78,10 @@ public class UnallyCommand : CommandExecutor, TabCompleter {
 
     private fun printHelp(sender: CommandSender) {
         Message.print(sender, "[Nodes] Comandos de alianzas:")
-        Message.print(sender, "/ally [town]${ChatColor.WHITE}: Offer/accept alliance with town")
-        Message.print(sender, "/ally [nación]${ChatColor.WHITE}: Offer/accept alliance with nation")
-        Message.print(sender, "/unally [town]${ChatColor.WHITE}: Break alliance with town")
-        Message.print(sender, "/unally [nación]${ChatColor.WHITE}: Break alliance with nation")
+        Message.print(sender, "/ally [town]${ChatColor.WHITE}: Ofrecer/aceptar alianza con una town")
+        Message.print(sender, "/ally [nación]${ChatColor.WHITE}: Ofrecer/aceptar alianza con una nación")
+        Message.print(sender, "/unally [town]${ChatColor.WHITE}: Romper alianza con una town")
+        Message.print(sender, "/unally [nación]${ChatColor.WHITE}: Romper alianza con una nación")
         return
     }
 
@@ -109,13 +109,13 @@ public class UnallyCommand : CommandExecutor, TabCompleter {
             return
         }
         
-        Message.error(player, "Town or nation \"${target}\" does not exist")
+        Message.error(player, "La town o nación \"${target}\" no existe")
     }
 
     // break alliance with other side
     private fun breakAlliance(player: Player, town: Town, other: Town, townNation: Nation?, otherNation: Nation?) {
         if ( town === other ) {
-            Message.error(player, "You cannot make a peace treaty with yourself.")
+            Message.error(player, "No puedes hacer un tratado de paz contigo mismo")
             return
         }
 
@@ -137,11 +137,11 @@ public class UnallyCommand : CommandExecutor, TabCompleter {
                 other.name
             }
             
-            Message.print(player, "${ChatColor.DARK_RED}${ChatColor.BOLD}${thisSide} has ended its alliance with ${otherSide}")
+            Message.print(player, "${ChatColor.DARK_RED}${ChatColor.BOLD}${thisSide} ha roto su alianza con ${otherSide}")
         }
         else {
             when ( result.exceptionOrNull() ) {
-                ErrorNotAllies -> Message.error(player, "You are not allied with this town or nation")
+                ErrorNotAllies -> Message.error(player, "No estás aliado con esa town o nación")
             }
         }
     }
