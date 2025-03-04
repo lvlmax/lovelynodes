@@ -50,18 +50,18 @@ public class WarCommand : CommandExecutor, TabCompleter {
 
         val town = resident.town
         if ( town == null ) {
-            Message.error(player, "You do not belong to a town")
+            Message.error(player, "No perteneces a una town")
             return true
         }
 
         val nation = town.nation
         if ( nation !== null && town !== nation.capital ) {
-            Message.error(player, "Only the nation's capital town can declare war")
+            Message.error(player, "Solamente la town capital de la nación puede declarar guerra")
             return true
         }
 
         if ( resident !== town.leader && !town.officers.contains(resident) ) {
-            Message.error(player, "Only the leader and officers can declare war")
+            Message.error(player, "Solo el líder y los officers pueden declarar guerra")
             return true
         }
 
@@ -80,9 +80,9 @@ public class WarCommand : CommandExecutor, TabCompleter {
     }
 
     private fun printHelp(sender: CommandSender) {
-        Message.print(sender, "${ChatColor.BOLD}[Nodes] War commands:")
-        Message.print(sender, "/war [town]${ChatColor.WHITE}: Declare war on a town")
-        Message.print(sender, "/war [nation]${ChatColor.WHITE}: Declare war on a nation")
+        Message.print(sender, "${ChatColor.BOLD}[Nodes] Comandos de guerra:")
+        Message.print(sender, "/war [town]${ChatColor.WHITE}: Declarar guerra a una town")
+        Message.print(sender, "/war [nación]${ChatColor.WHITE}: Declarar guerra a una nación")
         return
     }
 
@@ -101,7 +101,7 @@ public class WarCommand : CommandExecutor, TabCompleter {
         val enemyTown = Nodes.towns.get(target)
         if ( enemyTown !== null ) {
             if ( enemyTown === town ) {
-                Message.error(player, "You cannot declare war on yourself")
+                Message.error(player, "No puedes declararte la guerra a ti mismo")
                 return
             }
 
@@ -115,30 +115,30 @@ public class WarCommand : CommandExecutor, TabCompleter {
             return
         }
         
-        Message.error(player, "Town or nation \"${target}\" does not exist")
+        Message.error(player, "Town o nación \"${target}\" no existe")
     }
 
     // tries to declare war on another town
     private fun declareWar(player: Player, town: Town, enemy: Town, townNation: Nation?, enemyNation: Nation?) {
         // cannot declare war on self
         if ( town === enemy ) {
-            Message.error(player, "You cannot declare war on yourself")
+            Message.error(player, "No puedes declararte la guerra a ti mismo")
             return
         }
 
         // cannot war allies or truce
         if ( town.allies.contains(enemy) || enemy.allies.contains(town) ) {
-            Message.error(player, "You cannot declare war on an ally")
+            Message.error(player, "No puedes declararte la guerra a un aliado")
             return
         }
         if ( Truce.contains(town, enemy) ) {
-            Message.error(player, "You are in a truce with ${enemy.name}")
+            Message.error(player, "Estás en tregua con ${enemy.name}")
             return
         }
 
         // check if already in war
         if ( town.enemies.contains(enemy) || enemy.enemies.contains(town) ) {
-            Message.error(player, "You are already at war with ${enemy.name}")
+            Message.error(player, "Ya estás en guerra con ${enemy.name}")
             return
         }
 
@@ -148,22 +148,22 @@ public class WarCommand : CommandExecutor, TabCompleter {
             if ( townNation !== null ) {
                 if ( enemyNation !== null ) {
                     if ( townNation === enemyNation ) {
-                        Message.broadcast("${ChatColor.DARK_RED}${ChatColor.BOLD}${town.name} has declared war on ${enemy.name}!")
+                        Message.broadcast("¡${ChatColor.DARK_RED}${ChatColor.BOLD}${town.name} le ha declarado la guerra a ${enemy.name}!")
                     }
                     else {
-                        Message.broadcast("${ChatColor.DARK_RED}${ChatColor.BOLD}${townNation.name} has declared war on ${enemyNation.name}!")
+                        Message.broadcast("¡${ChatColor.DARK_RED}${ChatColor.BOLD}${townNation.name} le ha declarado la guerra a ${enemyNation.name}!")
                     }
                 }
                 else {
-                    Message.broadcast("${ChatColor.DARK_RED}${ChatColor.BOLD}${townNation.name} has declared war on ${enemy.name}!")
+                    Message.broadcast("¡${ChatColor.DARK_RED}${ChatColor.BOLD}${townNation.name} le ha declarado la guerra a ${enemy.name}!")
                 }
             }
             else {
                 if ( enemyNation !== null ) {
-                    Message.broadcast("${ChatColor.DARK_RED}${ChatColor.BOLD}${town.name} has declared war on ${enemyNation.name}!")
+                    Message.broadcast("¡${ChatColor.DARK_RED}${ChatColor.BOLD}${town.name} le ha declarado la guerra a ${enemyNation.name}!")
                 }
                 else {
-                    Message.broadcast("${ChatColor.DARK_RED}${ChatColor.BOLD}${town.name} has declared war on ${enemy.name}!")
+                    Message.broadcast("¡${ChatColor.DARK_RED}${ChatColor.BOLD}${town.name} le ha declarado la guerra a ${enemy.name}!")
                 }
             }
         }
