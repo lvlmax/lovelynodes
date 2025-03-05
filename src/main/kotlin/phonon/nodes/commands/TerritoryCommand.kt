@@ -31,11 +31,11 @@ public class TerritoryCommand : CommandExecutor, TabCompleter {
                 val loc = player.getLocation()
                 val getTerritory = Nodes.getTerritoryFromBlock(loc.x.toInt(), loc.z.toInt())
 
-                Message.print(sender, "Territory at current location:")
-                Message.print(sender, "(Other usage: \"/territory [id]\")")
+                Message.print(sender, "Territorio en la localización actual:")
+                Message.print(sender, "(Otro uso: \"/territory [id]\")")
 
                 if ( getTerritory == null ) {
-                    Message.error(sender, "No territory at current location")
+                    Message.error(sender, "Aquí no hay territorio")
                     return true
                 }
 
@@ -43,8 +43,8 @@ public class TerritoryCommand : CommandExecutor, TabCompleter {
             }
             // console user, just print territory count
             else {
-                Message.print(sender, "Territories: ${Nodes.getTerritoryCount()}")
-                Message.print(sender, "Usage: \"/territory [id]\"")
+                Message.print(sender, "Territorios: ${Nodes.getTerritoryCount()}")
+                Message.print(sender, "Uso: \"/territory [id]\"")
                 Message.print(sender, "(This is intended to only be used ingame)")
                 return true
             }
@@ -53,7 +53,7 @@ public class TerritoryCommand : CommandExecutor, TabCompleter {
             // parse input as id
             val getTerritory = args[0].toIntOrNull()?.let { id -> Nodes.territories[TerritoryId(id)] }
             if ( getTerritory == null ) {
-                Message.error(sender, "Invalid territory id \"${args[0]}\"")
+                Message.error(sender, "ID de territorio inválido \"${args[0]}\"")
                 return true
             }
 
