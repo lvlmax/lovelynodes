@@ -1383,7 +1383,7 @@ public class TownCommand : CommandExecutor, TabCompleter {
             player.openInventory(Nodes.getTownIncomeInventory(town))
         }
         else {
-            Message.error(player, "You do not have permissions to view town income")
+            Message.error(player, "No tienes permiso para ver el income de la town")
         }
     }
 
@@ -1892,22 +1892,22 @@ public class TownCommand : CommandExecutor, TabCompleter {
         // check if player is leader or officer
         val leader = town.leader
         if ( resident !== leader && !town.officers.contains(resident) ) {
-            Message.error(player, "Only leaders and officers can move the town's home capital territory")
+            Message.error(player, "Solo los líderes y los officers pueden el territorio del home de la town")
             return
         }
 
         // check if territory belongs to town and isnt home already
         val territory = Nodes.getTerritoryFromPlayer(player)
         if ( territory == null ) {
-            Message.error(player, "This region has no territory")
+            Message.error(player, "Esta región no tiene territorio")
             return
         }
         if ( town !== territory.town ) {
-            Message.error(player, "This is not your territory")
+            Message.error(player, "Este no es tú territorio")
             return
         }
         if ( town.home == territory.id ) {
-            Message.error(player, "This is already your home territory")
+            Message.error(player, "Este ya es tú territorio home")
             return
         }
         if ( town.moveHomeCooldown > 0 ) {
@@ -1921,13 +1921,13 @@ public class TownCommand : CommandExecutor, TabCompleter {
                 "0hr 0min"
             }
 
-            Message.error(player, "You cannot move the town's home territory for: ${remainingTimeString} ")
+            Message.error(player, "No puedes mover el territorio home durante: ${remainingTimeString} ")
             return
         }
 
         // move home territory
         Nodes.setTownHomeTerritory(town, territory)
-        Message.print(player, "You have moved the town's home territory to id = ${territory.id} (do not forget to update /t setspawn)")
+        Message.print(player, "Has movido el territorio home al territorio con la ID = ${territory.id} (No olvides de cambiar el /t setspawn)")
     }
 
     /**
@@ -1940,12 +1940,12 @@ public class TownCommand : CommandExecutor, TabCompleter {
         }
 
         if ( Config.annexDisabled ) {
-            Message.error(player, "Annexing disabled")
+            Message.error(player, "Anexar está deshabilitado")
             return
         }
 
         if ( !Nodes.war.enabled || !Nodes.war.canAnnexTerritories ) {
-            Message.error(player, "You can only annex territories during war")
+            Message.error(player, "Solo puedes anexar territorios durante guerra")
             return
         }
 
@@ -1963,64 +1963,64 @@ public class TownCommand : CommandExecutor, TabCompleter {
         // check if player is leader or officer
         val leader = town.leader
         if ( resident !== leader && !town.officers.contains(resident) ) {
-            Message.error(player, "Only leaders and officers can annex territories")
+            Message.error(player, "Solo el líder y officers pueden anexar territorios")
             return
         }
 
         // check if territory belongs to town and isnt home already
         val territory = Nodes.getTerritoryFromPlayer(player)
         if ( territory == null ) {
-            Message.error(player, "This region has no territory")
+            Message.error(player, "Esta región no tiene territorio")
             return
         }
 
         val territoryTown = territory.town
         if ( territoryTown === null ) {
-            Message.error(player, "There is no town here")
+            Message.error(player, "No hay town aquí")
             return
         }
         
         // check blacklist
         if ( Config.warUseBlacklist && Config.warBlacklist.contains(territoryTown.uuid) ) {
-            Message.error(player, "Cannot annex this town (blacklisted)")
+            Message.error(player, "No se puede anexar esta town (blacklisted)")
             return
         }
         if ( Config.useAnnexBlacklist && Config.annexBlacklist.contains(territoryTown.uuid) ) {
-            Message.error(player, "Cannot annex this town (blacklisted)")
+            Message.error(player, "No se puede anexar esta town (blacklisted)")
             return
         }
 
         // check whitelist
         if ( Config.warUseWhitelist ) {
             if ( !Config.warWhitelist.contains(territoryTown.uuid) ) {
-                Message.error(player, "Cannot annex this town (not whitelisted)")
+                Message.error(player, "No se puede anexar esta town (not whitelisted)")
                 return
             }
             else if ( Config.onlyWhitelistCanAnnex && !Config.warWhitelist.contains(town.uuid) ) {
-                Message.error(player, "Cannot annex territories because your town is not white listed")
+                Message.error(player, "No se puede anexar territorios porque tú town no está whitelisteada")
                 return
             }
         }
 
         if ( town === territoryTown ) {
-            Message.error(player, "This already your territory")
+            Message.error(player, "Este ya es tú territorio")
             return
         }
         if ( territory.occupier !== town ) {
-            Message.error(player, "You have not occupied this territory")
+            Message.error(player, "No has ocupado este territorio")
             return
         }
         if ( territoryTown.home == territory.id && territoryTown.territories.size > 1 ) {
-            Message.error(player, "You must annex all of this town's other territories before you can annex its home territory")
+            Message.error(player, "Necesitas anexar todos los otros territorios antes de anexar la capital")
             return
         }
 
         val result = Nodes.annexTerritory(town, territory)
         if ( result == true ) {
-            Message.print(player, "Annexed territory (id = ${territory.id})")
+            Message.print(player, "Territorio anexado (id = ${territory.id})")
         }
         else {
-            Message.error(player, "Failed to annex territory")
+            Message.error(player, "La anexión ha fallado")
         }
     }
 
@@ -2055,10 +2055,9 @@ public class TownCommand : CommandExecutor, TabCompleter {
     }
 
     private fun printOutpostHelp(sender: CommandSender) {
-        Message.print(sender, "${ChatColor.BOLD}[Nodes] Town outpost management:")
-        Message.print(sender, "/town outpost list${ChatColor.WHITE}: List town's outposts")
-        Message.print(sender, "/town outpost setspawn${ChatColor.WHITE}: Set town outpost spawn to your current location")
-        Message.print(sender, "Run a command with no args to see usage.")
+        Message.print(sender, "${ChatColor.BOLD}[Nodes] Administración del outpost:")
+        Message.print(sender, "/town outpost list${ChatColor.WHITE}: Mostrar los outpost de la town")
+        Message.print(sender, "/town outpost setspawn${ChatColor.WHITE}: Determina el spawn del outpost")
     }
     
     /**
@@ -2078,14 +2077,14 @@ public class TownCommand : CommandExecutor, TabCompleter {
         }
 
         if ( town.outposts.size > 0 ) {
-            Message.print(player, "Town outposts:")
+            Message.print(player, "Outposts:")
             for ( (name, outpost) in town.outposts ) {
                 val spawn = outpost.spawn
-                Message.print(player, "- ${name}${ChatColor.WHITE}: Territory (id=${outpost.territory}, Spawn = (${spawn.x}, ${spawn.y}, ${spawn.z})")
+                Message.print(player, "- ${name}${ChatColor.WHITE}: Territorio (id=${outpost.territory}, Spawn = (${spawn.x}, ${spawn.y}, ${spawn.z})")
             }
         }
         else {
-            Message.error(player, "Town has no outposts")
+            Message.error(player, "La town no tiene outposts")
         }
     }
 
@@ -2108,18 +2107,18 @@ public class TownCommand : CommandExecutor, TabCompleter {
         // check if player is leader or officer
         val leader = town.leader
         if ( resident !== leader && !town.officers.contains(resident) ) {
-            Message.error(player, "Only leaders and officers can move an outpost's spawn location")
+            Message.error(player, "Solo el líder y los officers pueden mover el spawn del outpost)
             return
         }
 
         // check if territory belongs to town and isnt home already
         val territory = Nodes.getTerritoryFromPlayer(player)
         if ( territory == null ) {
-            Message.error(player, "This region has no territory")
+            Message.error(player, "Esta región no tiene territorios")
             return
         }
         if ( town !== territory.town ) {
-            Message.error(player, "This is not your territory")
+            Message.error(player, "Este no es tú territorio")
             return
         }
         
@@ -2128,16 +2127,16 @@ public class TownCommand : CommandExecutor, TabCompleter {
             if ( outpost.territory == territory.id ) {
                 val result = Nodes.setOutpostSpawn(town, outpost, player.location)
                 if ( result == true ) {
-                    Message.print(player, "Set outpost \"${outpost.name}\" spawn to current location")
+                    Message.print(player, "Spawn del outpost \"${outpost.name}\" movido a la localización actual")
                 }
                 else {
-                    Message.error(player, "Failed to set outpost spawn in current location")
+                    Message.error(player, "No se ha podido mover el spawn del outpost")
                 }
                 return
             }
         }
 
         // failed to match, return error
-        Message.error(player, "Your town has no outpost in this location")
+        Message.error(player, "Tú town no tiene un outpost aquí")
     }
 }
