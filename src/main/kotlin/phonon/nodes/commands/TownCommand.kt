@@ -1730,7 +1730,7 @@ public class TownCommand : CommandExecutor, TabCompleter {
             "outsider" -> PermissionsGroup.OUTSIDER
             "trusted" -> PermissionsGroup.TRUSTED
             else -> { 
-                Message.error(player, "Invalid permissions group ${args[2]}. Valid options: town, nation, ally, outsider, trusted")
+                Message.error(player, "Grupo de permisos inválido ${args[2]}. Opciones válidas: town, nation, ally, outsider, trusted")
                 return
             }
         }
@@ -1744,14 +1744,14 @@ public class TownCommand : CommandExecutor, TabCompleter {
             "false" -> { false }
             
             else -> { 
-                Message.error(player, "Invalid permissions flag ${args[3]}. Valid options: allow, deny")
+                Message.error(player, "Flag de permisos inválido ${args[3]}. Opciones válidas: allow, deny")
                 return
             }
         }
 
         Nodes.setTownPermissions(town, permissions, group, flag)
 
-        Message.print(player, "Set permissions for ${town.name}: ${permissions} ${group} ${flag}")
+        Message.print(player, "Permisos establecidos para ${town.name}: ${permissions} ${group} ${flag}")
     }
 
     /**
@@ -1779,7 +1779,7 @@ public class TownCommand : CommandExecutor, TabCompleter {
         
         if ( args.size > 1 ) {
             if ( args[1].lowercase() == "show" ) {
-                Message.print(player, "Protected chests:")
+                Message.print(player, "Cofres protegidos:")
                 // print protected chests
                 for ( block in town.protectedBlocks ) {
                     Message.print(player, "${ChatColor.WHITE}${block.type}: x: ${block.x}, y: ${block.y}, z: ${block.z}")
@@ -1788,8 +1788,8 @@ public class TownCommand : CommandExecutor, TabCompleter {
                 Nodes.showProtectedChests(town, resident)
             }
             else {
-                Message.error(player, "Usage: \"/t protect\" to toggle protecting chests")
-                Message.error(player, "Usage: \"/t protect show\" to show protected chests")
+                Message.error(player, "Uso: \"/t protect\" para habilitar la protección de cofres")
+                Message.error(player, "Uso: \"/t protect show\" para ver los cofres protegidos")
             }
             return
         }
@@ -1797,18 +1797,18 @@ public class TownCommand : CommandExecutor, TabCompleter {
         // check if player is town leader or officer
         val leader = town.leader
         if ( resident !== leader && !town.officers.contains(resident) ) {
-            Message.error(player, "Only leaders and officers can protect chests")
+            Message.error(player, "Solo el líder y los officers pueden proteger cofres")
             return
         }
 
         if ( resident.isProtectingChests ) {
             Nodes.stopProtectingChests(resident)
-            Message.print(player, "${ChatColor.DARK_AQUA}Stopped protecting chests.")
+            Message.print(player, "${ChatColor.DARK_AQUA}Herramienta de protección de cofres deshabilitado.")
         }
         else {
             Nodes.startProtectingChests(resident)
             player.playSound(player.location, NODES_SOUND_CHEST_PROTECT, 1.0f, 1.0f)
-            Message.print(player, "Click on a chest to protect or unprotect it. Use \"/t protect\" again to stop protecting, or click a non-chest block to stop.")
+            Message.print(player, "Haz click en un cofre para protegerlo o desprotegerlo. Usa \"/t protect\" de nuevo para dejar de proteger, o haz click en un bloque que no sea un cofre.")
         }
     }
 
