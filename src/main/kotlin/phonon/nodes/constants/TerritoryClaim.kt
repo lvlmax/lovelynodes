@@ -9,10 +9,10 @@
 package phonon.nodes.constants
 
 // claim errors
-val ErrorTooManyClaims = Exception("Town has too many claims")
-val ErrorTerritoryNotConnected = Exception("Territory not connected to town's claims")
-val ErrorTerritoryHasClaim = Exception("Territory already has town")
+val ErrorTooManyClaims = Exception("La town tiene muchos claims")
+val ErrorTerritoryNotConnected = Exception("Territorio no conectado a los claims de la town")
+val ErrorTerritoryHasClaim = Exception("El territorio ya tiene una town")
 
 // unclaim errors
-val ErrorTerritoryIsTownHome = Exception("Territory is town home")
-val ErrorTerritoryNotInTown = Exception("Territory does not belong to town")
+val ErrorTerritoryIsTownHome = Exception("El territorio es el home de la town")
+val ErrorTerritoryNotInTown = Exception("El territorio no pertenece a una town")
