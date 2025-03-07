@@ -17,7 +17,7 @@ public class NodesDiplomacyTruceExpiredListener: Listener {
         val town1 = event.town1
         val town2 = event.town2
 
-        val msgTown1 = "Your truce with ${town2.name} has expired"
+        val msgTown1 = "Tú tregua con ${town2.name} ha caducado"
         for ( r in town1.residents ) {
             val player = r.player()
             if ( player !== null ) {
@@ -25,7 +25,7 @@ public class NodesDiplomacyTruceExpiredListener: Listener {
             }
         }
 
-        val msgTown2 = "Your truce with ${town1.name} has expired"
+        val msgTown2 = "La tregua con ${town1.name} ha expirado"
         for ( r in town2.residents ) {
             val player = r.player()
             if ( player !== null ) {
