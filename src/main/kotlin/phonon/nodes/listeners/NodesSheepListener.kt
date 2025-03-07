@@ -27,7 +27,7 @@ public class NodesSheepShearListener: Listener {
             
             if ( territory?.animals?.contains(EntityType.SHEEP) != true ) {
                 val player = event.player
-                Message.error(player, "You can only collect wool in sheep nodes")
+                Message.error(player, "Solo puedes recoger lana en nodes de ovejas")
                 event.setCancelled(true)
             }
         }
