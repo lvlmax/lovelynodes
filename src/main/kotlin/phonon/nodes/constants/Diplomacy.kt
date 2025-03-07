@@ -21,12 +21,12 @@ public enum class DiplomaticRelationship {
 }
 
 // constants for setting enemy
-public val ErrorWarAllyOrTruce = Exception("Cannot declare war against ally or truced")
-public val ErrorAlreadyEnemies = Exception("Already enemies")
-public val ErrorAlreadyAllies = Exception("Already allies")
+public val ErrorWarAllyOrTruce = Exception("No se puede declarar guerra a un aliado o una tregua")
+public val ErrorAlreadyEnemies = Exception("Ya enemigos")
+public val ErrorAlreadyAllies = Exception("Ya aliados")
 
 // constants for adding/removing ally
-public val ErrorNotAllies = Exception("Not allies")
+public val ErrorNotAllies = Exception("No aliados")
 
 // constants for adding/remove truce
-public val ErrorAlreadyTruce = Exception("Already truce")
+public val ErrorAlreadyTruce = Exception("Ya hay una tregua")
