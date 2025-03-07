@@ -59,7 +59,7 @@ public class Nation(
 
     // prints out nation object info
     public fun printInfo(sender: CommandSender) {
-        val leader = this.capital.leader?.name ?: "${ChatColor.GRAY}None"
+        val leader = this.capital.leader?.name ?: "${ChatColor.GRAY}Ninguna"
 
         // read info out of towns:
         // - get town names
@@ -73,28 +73,28 @@ public class Nation(
             }
             townNames.joinToString(", ")
         } else {
-            "${ChatColor.GRAY}None"
+            "${ChatColor.GRAY}Ninguno"
         }
 
         val allies = if ( this.allies.size > 0 ) {
             this.allies.map {v -> v.name}.joinToString(", ")
         } else {
-            "${ChatColor.GRAY}None"
+            "${ChatColor.GRAY}Ninguno"
         }
 
         val enemies = if ( this.enemies.size > 0 ) {
             this.enemies.map {v -> v.name}.joinToString(", ")
         } else {
-            "${ChatColor.GRAY}None"
+            "${ChatColor.GRAY}Ninguno"
         }
 
-        Message.print(sender, "${ChatColor.BOLD}Nation ${this.name}:")
+        Message.print(sender, "${ChatColor.BOLD}Nación ${this.name}:")
         Message.print(sender, "- Capital${ChatColor.WHITE}: ${this.capital.name}")
-        Message.print(sender, "- Leader${ChatColor.WHITE}: ${leader}")
+        Message.print(sender, "- Líder${ChatColor.WHITE}: ${leader}")
         Message.print(sender, "- Towns[${this.towns.size}]${ChatColor.WHITE}: ${towns}")
-        Message.print(sender, "- Residents${ChatColor.WHITE}: ${residents}")
-        Message.print(sender, "- Allies${ChatColor.WHITE}: ${allies}")
-        Message.print(sender, "- Enemies${ChatColor.WHITE}: ${enemies}")
+        Message.print(sender, "- Residentes${ChatColor.WHITE}: ${residents}")
+        Message.print(sender, "- Aliados${ChatColor.WHITE}: ${allies}")
+        Message.print(sender, "- Enemigos${ChatColor.WHITE}: ${enemies}")
     }
 
     /**
