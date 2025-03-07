@@ -6,9 +6,9 @@
 package phonon.nodes.constants
 
 // town create errors
-public val ErrorTownExists = Exception("Town name already exists")
-public val ErrorPlayerHasTown = Exception("Player already in a town")
-public val ErrorTerritoryOwned = Exception("Territory already has town") // doubles as territory claim error
+public val ErrorTownExists = Exception("Ese nombre ya lo tiene otra town")
+public val ErrorPlayerHasTown = Exception("El jugador ya está en la town")
+public val ErrorTerritoryOwned = Exception("El territorio ya tiene town") // doubles as territory claim error
 
 // town territory claim/unclaim errors
 // ErrorTerritoryOwned doubles as error
