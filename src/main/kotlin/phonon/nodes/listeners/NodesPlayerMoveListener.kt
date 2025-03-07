@@ -42,7 +42,7 @@ public class NodesPlayerMoveListener: Listener {
         if ( resident?.teleportThread != null ) {
             resident.teleportThread!!.cancel()
             resident.teleportThread = null // remove reference
-            Message.error(event.player, "You moved, teleport cancelled")
+            Message.error(event.player, "Te has movido, teletransporte cancelado")
 
             // provide cost refund if player teleporting to outpost
             if ( resident.isTeleportingToOutpost == true ) {
@@ -154,7 +154,7 @@ public class NodesPlayerMoveListener: Listener {
                     Message.announcement(player, "${ChatColor.GRAY}${toTerritory.name}")
                 }
                 else {
-                    Message.announcement(player, "${ChatColor.GRAY}Wilderness")
+                    Message.announcement(player, "${ChatColor.GRAY}Naturaleza")
                 }
             }
             else if ( toTown !== null ) {
@@ -203,20 +203,20 @@ private fun printTownMessage(player: Player, resident: Resident, toTown: Town, t
         // set occupation status
         if ( territoryOccupier !== null ) {
             if ( territoryOccupier === residentTown ) {
-                ownerStatus = " ${ChatColor.DARK_GREEN}(Captured)"
+                ownerStatus = " ${ChatColor.DARK_GREEN}(Capturado)"
             }
             else if ( toTown === residentTown ) {
-                ownerStatus = " ${ChatColor.DARK_RED}(Occupied)"
+                ownerStatus = " ${ChatColor.DARK_RED}(Ocupado)"
             }
             else {
-                ownerStatus = " ${ChatColor.DARK_AQUA}(Occupied)"
+                ownerStatus = " ${ChatColor.DARK_AQUA}(Ocupado)"
             }
         }
     }
     else {
         territoryNameColor = "${ChatColor.DARK_AQUA}"
         if ( territoryOccupier !== null ) {
-            ownerStatus = " (Occupied)"
+            ownerStatus = " (Ocupado)"
         }
     }
 
