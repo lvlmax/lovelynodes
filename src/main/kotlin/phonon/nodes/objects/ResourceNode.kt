@@ -204,7 +204,7 @@ public data class ResourceAttributeCrops(
     val description: String
 
     init {
-        val s = StringBuilder("Crops:\n")
+        val s = StringBuilder("Cultivos:\n")
         for ( entry in this.crops.entries ) {
             s.append("- ${entry.key}: ${entry.value}\n")
         }
@@ -243,7 +243,7 @@ public data class ResourceAttributeAnimals(
     val description: String
 
     init {
-        val s = StringBuilder("Animals:\n")
+        val s = StringBuilder("Animales:\n")
         for ( entry in this.animals.entries ) {
             s.append("- ${entry.key}: ${entry.value}\n")
         }
@@ -283,7 +283,7 @@ public data class ResourceAttributeTotalIncomeMultiplier(
     private val multiplier: Double,
 ): ResourceAttribute {
     override val priority: Int = 50
-    val description: String = "Income Multiplier: ${this.multiplier}"
+    val description: String = "Multiplicador de income: ${this.multiplier}"
 
     /**
      * Apply multiplier to resource's income.
@@ -313,7 +313,7 @@ public data class ResourceAttributeTotalOreMultiplier(
     private val multiplier: Double,
 ): ResourceAttribute {
     override val priority: Int = 50
-    val description: String = "Ore Multiplier: ${this.multiplier}"
+    val description: String = "Multiplicador de ore: ${this.multiplier}"
 
     /**
      * Apply multiplier to resource's ores.
@@ -338,7 +338,7 @@ public data class ResourceAttributeTotalCropsMultiplier(
     private val multiplier: Double,
 ): ResourceAttribute {
     override val priority: Int = 50
-    val description: String = "Crops Multiplier: ${this.multiplier}"
+    val description: String = "Multiplicador de cultivo: ${this.multiplier}"
 
     /**
      * Apply multiplier to resource's crops.
@@ -363,7 +363,7 @@ public data class ResourceAttributeTotalAnimalsMultiplier(
     private val multiplier: Double,
 ): ResourceAttribute {
     override val priority: Int = 50
-    val description: String = "Animal Breeding Multiplier: ${this.multiplier}"
+    val description: String = "Multiplicador de alimentación de animales: ${this.multiplier}"
 
     /**
      * Apply multiplier to resource's crops.
@@ -392,7 +392,7 @@ public data class ResourceAttributeIncomeMultiplier(
     val description: String
 
     init {
-        val s = StringBuilder("Income Multiplier:\n")
+        val s = StringBuilder("Multiplicador de income:\n")
         for ( (item, value) in this.income.entries ) {
             s.append("- ${item}: ${value}\n")
         }
@@ -439,7 +439,7 @@ public data class ResourceAttributeOreMultiplier(
     val description: String
 
     init {
-        val s = StringBuilder("Ore Multiplier:\n")
+        val s = StringBuilder("Multiplicador de ore:\n")
         for ( (type, entry) in this.multiplier ) {
             s.append("- ${type}: ${entry}\n")
         }
@@ -481,7 +481,7 @@ public data class ResourceAttributeCropsMultiplier(
     val description: String
 
     init {
-        val s = StringBuilder("Crops Multiplier:\n")
+        val s = StringBuilder("Multiplicador de ore:\n")
         for ( (type, entry) in this.multiplier ) {
             s.append("- ${type}: ${entry}\n")
         }
@@ -517,7 +517,7 @@ public data class ResourceAttributeAnimalsMultiplier(
     val description: String
 
     init {
-        val s = StringBuilder("Animals Multiplier:\n")
+        val s = StringBuilder("Multiplicador de animales:\n")
         for ( (type, entry) in this.multiplier ) {
             s.append("- ${type}: ${entry}\n")
         }
