@@ -60,7 +60,7 @@ public class NodesWorldListener: Listener {
             if ( attack !== null ) {
                 event.setCancelled(true)
                 attack.cancel()
-                Message.broadcast("${ChatColor.GOLD}[War] Attack at (${block.x}, ${block.y}, ${block.z}) defeated by ${player.name}")
+                Message.broadcast("${ChatColor.GOLD}[War] Ataque en (${block.x}, ${block.y}, ${block.z}) derrotado por ${player.name}")
             }
         }
         
@@ -82,7 +82,7 @@ public class NodesWorldListener: Listener {
             }
 
             event.setCancelled(true)
-            Message.error(player, "You cannot destroy here!")
+            Message.error(player, "¡No puedes destruir aquí!")
             return
         }
 
@@ -105,7 +105,7 @@ public class NodesWorldListener: Listener {
         }
 
         event.setCancelled(true)
-        Message.error(player, "You cannot destroy here!")
+        Message.error(player, "¡No puedes destruir aquí!")
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -153,7 +153,7 @@ public class NodesWorldListener: Listener {
                     if ( attack !== null ) {
                         if ( blockInWarFlagNoBuildRegion(block, attack) ) {
                             event.setCancelled(true)
-                            Message.error(player, "[War] Cannot build within ${Config.flagNoBuildDistance} blocks of war flags")
+                            Message.error(player, "[War] No se puede construir entre ${Config.flagNoBuildDistance} bloques de la flag war")
                             return
                         }
                     }
@@ -172,25 +172,25 @@ public class NodesWorldListener: Listener {
                     
                                 // reclaiming your town
                                 if ( townAttacked === town ) {
-                                    Message.broadcast("${ChatColor.DARK_RED}[War] ${event.player.name} is liberating ${townAttacked.name} at (${block.x}, ${block.y}, ${block.z})")
+                                    Message.broadcast("${ChatColor.DARK_RED}[War] ${event.player.name} está liberando ${townAttacked.name} en (${block.x}, ${block.y}, ${block.z})")
                                 }
                                 else { // attacking enemy
-                                    Message.broadcast("${ChatColor.DARK_RED}[War] ${event.player.name} is attacking ${townAttacked.name} at (${block.x}, ${block.y}, ${block.z})")
+                                    Message.broadcast("${ChatColor.DARK_RED}[War] ${event.player.name} está atacando ${townAttacked.name} en (${block.x}, ${block.y}, ${block.z})")
                                 }
                             }
                             else {
                                 when ( result.exceptionOrNull() ) {
-                                    ErrorNoTerritory -> Message.error(player, "[War] There is no territory here")
-                                    ErrorAlreadyUnderAttack -> Message.error(player, "[War] Chunk already under attack")
-                                    ErrorAlreadyCaptured -> Message.error(player, "[War] Chunk already captured by town or allies")
-                                    ErrorTownBlacklisted -> Message.error(player, "[War] Cannot attack this town (blacklisted)")
-                                    ErrorTownNotWhitelisted -> Message.error(player, "[War] Cannot attack this town (not whitelisted)")
-                                    ErrorNotEnemy -> Message.error(player, "[War] Chunk does not belong to an enemy")
-                                    ErrorNotBorderTerritory -> Message.error(player, "[War] You can only attack border territories")
-                                    ErrorChunkNotEdge -> Message.error(player, "[War] Must attack from territory edge or from captured chunk")
-                                    ErrorFlagTooHigh -> Message.error(player, "[War] Flag placement too high, cannot create flag")
-                                    ErrorSkyBlocked -> Message.error(player, "[War] Flag must see the sky")
-                                    ErrorTooManyAttacks -> Message.error(player, "[War] You cannot attack any more chunks at the same time")
+                                    ErrorNoTerritory -> Message.error(player, "[War] No hay territorio aquí")
+                                    ErrorAlreadyUnderAttack -> Message.error(player, "[War] Este chunk ya está bajo ataque")
+                                    ErrorAlreadyCaptured -> Message.error(player, "[War] El chunk ya fue capturado por la town o los aliados")
+                                    ErrorTownBlacklisted -> Message.error(player, "[War] No se puede atacar esta town (blacklisted)")
+                                    ErrorTownNotWhitelisted -> Message.error(player, "[War] No se puede atacar esta town (not whitelisted)")
+                                    ErrorNotEnemy -> Message.error(player, "[War] El chunk no pertenece a un enemigo")
+                                    ErrorNotBorderTerritory -> Message.error(player, "[War] Solo puedes atacar territorios colindantes")
+                                    ErrorChunkNotEdge -> Message.error(player, "[War] Debes de atacar desde el borde o un chunk capturado")
+                                    ErrorFlagTooHigh -> Message.error(player, "[War] La flag está muy alta, no se pudo generar")
+                                    ErrorSkyBlocked -> Message.error(player, "[War] La flag debe de ver el cielo")
+                                    ErrorTooManyAttacks -> Message.error(player, "[War] No puedes atacar más territorios a la vez")
                                 }
                     
                                 // cancel event
@@ -198,7 +198,7 @@ public class NodesWorldListener: Listener {
                             }
                         }
                         else {
-                            Message.error(player, "[War] Cannot claim unless you are part of a town")
+                            Message.error(player, "[War] No puedes claimear si no eres de una town")
                             event.setCancelled(true)
                         }
                     } else {
@@ -225,7 +225,7 @@ public class NodesWorldListener: Listener {
             }
 
             event.setCancelled(true)
-            Message.error(player, "You cannot build here!")
+            Message.error(player, "¡No puedes construir aquí!")
             return
         }
 
@@ -292,7 +292,7 @@ public class NodesWorldListener: Listener {
             }
 
             event.setCancelled(true)
-            Message.error(player, "You cannot use buckets here")
+            Message.error(player, "No puedes usar cubetas aquí")
             return
         }
 
@@ -315,7 +315,7 @@ public class NodesWorldListener: Listener {
         }
 
         event.setCancelled(true)
-        Message.error(player, "You cannot use buckets here")
+        Message.error(player, "No puedes usar cubetas aquí")
     }
 
     // handle placing water/lava onto block (can be used to destroy harvest crops)
@@ -414,7 +414,7 @@ public class NodesWorldListener: Listener {
                 // dont allow using block
                 val clickedBlock = event.getClickedBlock()
                 if ( clickedBlock !== null && INTERACTIVE_BLOCKS.contains(clickedBlock.getType()) ) {
-                    Message.error(player, "You cannot interact here!")
+                    Message.error(player, "¡No puedes interactuar aquí!")
                     event.setUseInteractedBlock(Result.DENY)
                 }
                 return
@@ -434,14 +434,14 @@ public class NodesWorldListener: Listener {
                     // check if chest protected
                     if ( town.protectedBlocks.contains(block) && !hasTownProtectedChestPermissions(town, resident) ) {
                         event.setCancelled(true)
-                        Message.error(player, "This chest is for trusted residents only")
+                        Message.error(player, "Este cofre es solo para residentes con trust")
                     }
 
                     return
                 }
                 
                 event.setCancelled(true)
-                Message.error(player, "You cannot use chests here!")
+                Message.error(player, "¡No puedes usar cofres aquí!")
                 return
             }
 
@@ -472,7 +472,7 @@ public class NodesWorldListener: Listener {
         }
         
         if ( action == Action.RIGHT_CLICK_BLOCK ) {
-            Message.error(player, "You cannot interact here!")
+            Message.error(player, "¡No puedes interactuar aquí!")
         }
     }
 
@@ -585,7 +585,7 @@ public class NodesWorldListener: Listener {
                     
                     if ( attack !== null ) {
                         attack.cancel()
-                        Message.broadcast("${ChatColor.GOLD}[War] Attack at (${block.x}, ${block.y}, ${block.z}) stopped by an explosion")
+                        Message.broadcast("${ChatColor.GOLD}[War] Ataque en (${block.x}, ${block.y}, ${block.z}) parado por una explosión")
                     }
                 }
             }
@@ -643,7 +643,7 @@ public class NodesWorldListener: Listener {
                     
                     if ( attack !== null ) {
                         attack.cancel()
-                        Message.broadcast("${ChatColor.GOLD}[War] Attack at (${block.x}, ${block.y}, ${block.z}) stopped by an explosion")
+                        Message.broadcast("${ChatColor.GOLD}[War] Ataque en (${block.x}, ${block.y}, ${block.z}) parado por una explosión")
                     }
                 }
             }
