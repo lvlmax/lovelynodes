@@ -49,7 +49,7 @@ public fun NodesPlayerChestProtectListener(player: Player, resident: Resident, t
                     val territoryTown: Town? = territory?.town
                     
                     if ( town !== territoryTown ) {
-                        Message.error(player, "This is not your town (stopping, use /t protect to start protecting again)")
+                        Message.error(player, "Esta no es tú town (Dejando de proteger, usa /t protect para volver a proteger)")
                         Nodes.stopProtectingChests(resident)
                         return
                     }
@@ -59,14 +59,14 @@ public fun NodesPlayerChestProtectListener(player: Player, resident: Resident, t
                         Nodes.protectTownChest(town, block, false)
         
                         player.playSound(player.location, NODES_SOUND_CHEST_PROTECT, 1.0f, 0.5f)
-                        Message.print(player, "${ChatColor.DARK_AQUA}Removed chest protection")
+                        Message.print(player, "${ChatColor.DARK_AQUA}Protección del cofre removida")
                     }
                     // protect
                     else {
                         Nodes.protectTownChest(town, block, true)
         
                         player.playSound(player.location, NODES_SOUND_CHEST_PROTECT, 1.0f, 1.0f)
-                        Message.print(player, "You have protected this chest")
+                        Message.print(player, "Has protegido este cofre")
                     }
                     
                     event.setCancelled(true)
@@ -74,7 +74,7 @@ public fun NodesPlayerChestProtectListener(player: Player, resident: Resident, t
                 }
             }
 
-            Message.error(player, "Not a chest (stopping, use /t protect to start protecting again)")
+            Message.error(player, "No es un cofre (dejando de proteger, usa /t protect para volver a proteger)")
             Nodes.stopProtectingChests(resident)
         }
     }
