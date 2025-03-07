@@ -31,7 +31,7 @@ data class Coord(val x: Int, val z: Int) {
                     val z = s.substring(splitIndex+1).toInt()
                     return Coord(x, z)
                 } catch ( e: NumberFormatException ) {
-                    System.err.println("Invalid Coord string: ${s}")
+                    System.err.println("Coordenadas incorrectas: ${s}")
                 }
             }
 
