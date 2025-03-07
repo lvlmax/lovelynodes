@@ -38,7 +38,7 @@ public class IncomeInventory: InventoryHolder {
     val storageSpawnEgg: EnumMap<EntityType, Int> = EnumMap<EntityType, Int>(EntityType::class.java)
 
     // inventory gui object, only populate when open
-    val _inventory: Inventory = Bukkit.createInventory(this, 54, "Town Income")
+    val _inventory: Inventory = Bukkit.createInventory(this, 54, "Income de la Town")
 
     // internal, add items to storage
     private fun _add(mat: Material, amount: Int) {
