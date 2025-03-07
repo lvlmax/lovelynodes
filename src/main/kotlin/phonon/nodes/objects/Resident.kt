@@ -111,13 +111,13 @@ public class Resident(val uuid: UUID, val name: String) {
 
     // print resident info
     public fun printInfo(sender: CommandSender) {
-        val town = this.town?.name ?: "${ChatColor.GRAY}None"
-        val nation = this.nation?.name ?: "${ChatColor.GRAY}None"
+        val town = this.town?.name ?: "${ChatColor.GRAY}Ninguno"
+        val nation = this.nation?.name ?: "${ChatColor.GRAY}Ninguno"
 
-        Message.print(sender, "${ChatColor.BOLD}Player ${this.name}:")
-        Message.print(sender, "- Claim Power${ChatColor.WHITE}: ${this.claims}/${Config.playerClaimsMax}")
+        Message.print(sender, "${ChatColor.BOLD}Jugador ${this.name}:")
+        Message.print(sender, "- Power de claim${ChatColor.WHITE}: ${this.claims}/${Config.playerClaimsMax}")
         Message.print(sender, "- Town${ChatColor.WHITE}: ${town}")
-        Message.print(sender, "- Nation${ChatColor.WHITE}: ${nation}")
+        Message.print(sender, "- Nación${ChatColor.WHITE}: ${nation}")
     }
 
     /**
