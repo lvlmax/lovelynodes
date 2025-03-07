@@ -17,7 +17,7 @@ public class NodesDiplomacyAllianceListener: Listener {
         val town1 = event.town1
         val town2 = event.town2
 
-        val msgTown1 = "Your town is now allied with ${town2.name}"
+        val msgTown1 = "Tú town ahora está aliada con ${town2.name}"
         for ( r in town1.residents ) {
             val player = r.player()
             if ( player !== null ) {
@@ -25,7 +25,7 @@ public class NodesDiplomacyAllianceListener: Listener {
             }
         }
 
-        val msgTown2 = "Your town is now allied with ${town1.name}"
+        val msgTown2 = "Tú town se alió con ${town1.name}"
         for ( r in town2.residents ) {
             val player = r.player()
             if ( player !== null ) {
