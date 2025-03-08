@@ -49,9 +49,6 @@ repositories {
     maven { // placeholder api
         url = 'https://repo.extendedclip.com/releases/'
     }
-}
-
-    // fast block edit
     maven {
         url = uri("https://repo.repsy.io/mvn/tlm920/minecraft")
     }
