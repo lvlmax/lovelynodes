@@ -49,7 +49,7 @@ public class NodesPAPI extends Placeholderexpansion {
 
   public String onRequest(OfflinePlayer player, String identifier) {
       if (identifier.equals("nodes_nation")) {
-          return resident.nation();
+          return resident.town();
       }
       return null;
     }
