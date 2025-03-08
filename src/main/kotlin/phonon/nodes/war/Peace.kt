@@ -34,8 +34,8 @@ public enum class PeaceRequest {
 }
 
 // errors
-public val ErrorPeaceRequestNotEnemies = Exception("Not enemies")
-public val ErrorPeaceRequestAlreadyCreated = Exception("Already sent a peace request")
+public val ErrorPeaceRequestNotEnemies = Exception("No enemigos")
+public val ErrorPeaceRequestAlreadyCreated = Exception("Ya se envió una solicitud de paz")
 
 // timeout for peace request to cancel (default 1200 ticks ~ 1 minute)
 private const val PEACE_REQUEST_TIMEOUT: Long = 1200L
@@ -151,7 +151,7 @@ public object Peace {
             for ( r in creator.residents ) {
                 val p = r.player()
                 if ( p !== null ) {
-                    Message.print(p, "${ChatColor.DARK_RED}Your peace offer to ${target.name} was ignored...")
+                    Message.print(p, "${ChatColor.DARK_RED}Tú solicitud de paz enviada a ${target.name} fue ignorada...")
                 }
             }
         }
