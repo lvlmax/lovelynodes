@@ -57,10 +57,10 @@ public class NodesPlugin : JavaPlugin() {
             if (Nodes.loadWorld()) { // successful load
                 // print number of resource nodes and territories loaded
                 logger.info("- Resource Nodes: ${Nodes.getResourceNodeCount()}")
-                logger.info("- Territories: ${Nodes.getTerritoryCount()}")
-                logger.info("- Residents: ${Nodes.getResidentCount()}")
+                logger.info("- Territorios: ${Nodes.getTerritoryCount()}")
+                logger.info("- Habitantes: ${Nodes.getResidentCount()}")
                 logger.info("- Towns: ${Nodes.getTownCount()}")
-                logger.info("- Nations: ${Nodes.getNationCount()}")
+                logger.info("- Naciones: ${Nodes.getNationCount()}")
             } else {
                 logger.severe("Error loading world: Invalid world file at ${pluginPath}/${Config.pathWorld}")
                 if ( Config.disableWorldWhenLoadFails ) {
@@ -140,10 +140,10 @@ public class NodesPlugin : JavaPlugin() {
         // print load time
         val timeEnd = System.currentTimeMillis()
         val timeLoad = timeEnd - timeStart
-        logger.info("Enabled in ${timeLoad}ms")
+        logger.info("Plugin habilitado en ${timeLoad}ms")
 
         // print success message
-        logger.info("now this is epic")
+        logger.info("es hora de nodesear, que épico chavales xd")
     }
 
     override fun onDisable() {
