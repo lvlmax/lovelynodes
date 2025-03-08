@@ -90,7 +90,7 @@ dependencies {
     // Use the Kotlin JUnit integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 
-    compileOnly 'me.clip:placeholderapi:2.11.6'
+    compileOnly("me.clip:placeholderapi:2.11.6")
 
 // TODO: resolve fast block edit build issues
 //    when (target) {
