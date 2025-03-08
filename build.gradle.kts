@@ -89,7 +89,7 @@ dependencies {
     // Use the Kotlin JUnit integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 
-    implementation "me.clip.placeholderapi:PlaceholderAPI:2.11.6"
+    implementation ("me.clip.placeholderapi:PlaceholderAPI:2.11.6")
 
 // TODO: resolve fast block edit build issues
 //    when (target) {
