@@ -1,16 +1,14 @@
-package phonon.nodes;
-package at.helpch.placeholderapi;
+package phonon.nodes
 
-import me.clip.placeholderapi.PlaceholderAPI;
-
-import org.bukkit.Bukkit;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.java.JavaPlugin;
-import me.clip.placeholderapi.PlaceholderAPI;
-
+import me.clip.placeholderapi.PlaceholderAPI
+import me.clip.placeholderapi.expansion.PlaceholderExpansion
+import org.bukkit.Bukkit
+import org.bukkit.OfflinePlayer
+import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
+import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerJoinEvent
+import org.bukkit.plugin.java.JavaPlugin
 import com.google.gson.JsonObject
 import org.bukkit.*
 import org.bukkit.block.Block
@@ -53,20 +51,26 @@ import java.util.concurrent.ThreadLocalRandom
 import java.util.logging.Logger
 import kotlin.system.measureNanoTime
 
-public class NodesPAPI extends Placeholderexpansion implements Listener {
-  
-  public String getIdentifier() {
-    return "nodes_nation";
-  }
+class NodesPAPI : PlaceholderExpansion(), Listener {
 
-  public String onRequest(OfflinePlayer player, String identifier) {
-    Resident resident = Residents.getResident(player.getUniqueId());
-    if (identifier.equals("nodes_town")) {
-        return resident.town();
+    override fun getIdentifier(): String {
+        return "nodes_nation"
     }
-    if (identifier.equals("nodes_nation")) {
-        return resident.nation();
+
+    override fun getAuthor(): String {
+        return "YourName" // Cambia esto por tu nombre
     }
-    return null;
-  }  
+
+    override fun getVersion(): String {
+        return "1.0.0" // Cambia esto por la versión de tu plugin
+    }
+
+    override fun onRequest(player: OfflinePlayer?, identifier: String): String? {
+        val resident = Residents.getResident(player?.uniqueId)
+        return when (identifier) {
+            "nodes_town" -> resident.town()
+            "nodes_nation" -> resident.nation()
+            else -> null
+        }
+    }
 }
