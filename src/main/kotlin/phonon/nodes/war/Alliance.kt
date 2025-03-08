@@ -33,9 +33,9 @@ public enum class AllianceRequest {
 }
 
 // errors
-public val ErrorAllyRequestEnemies = Exception("Not enemies")
-public val ErrorAllyRequestAlreadyAllies = Exception("Already allies")
-public val ErrorAllyRequestAlreadyCreated = Exception("Already sent an ally request")
+public val ErrorAllyRequestEnemies = Exception("No enemigos")
+public val ErrorAllyRequestAlreadyAllies = Exception("Ya aliado")
+public val ErrorAllyRequestAlreadyCreated = Exception("Ya se envió solicitud de alianza")
 
 // timeout for ally request to cancel (default 1200 ticks ~ 1 minute)
 private const val ALLY_REQUEST_TIMEOUT: Long = 1200L
@@ -127,7 +127,7 @@ public object Alliance {
                 towns.town1
             }
 
-            val msg = "${ChatColor.DARK_RED}Your alliance offer to ${target.name} was ignored..."
+            val msg = "${ChatColor.DARK_RED}Tú solicitud de alianza a ${target.name} fue ignorada..."
             for ( r in initiator.residents ) {
                 val p = r.player()
                 if ( p !== null ) {
