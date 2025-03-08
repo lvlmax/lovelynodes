@@ -179,18 +179,18 @@ public object FlagWar {
      * Print info to sender about current war state
      */
     public fun printInfo(sender: CommandSender, detailed: Boolean = false) {
-        val status = if ( Nodes.war.enabled == true ) "enabled" else "${ChatColor.GRAY}disabled"
-        Message.print(sender, "${ChatColor.BOLD}Nodes war status: ${status}")
+        val status = if ( Nodes.war.enabled == true ) "EN GUERRA" else "${ChatColor.GRAY}Periodo de Paz"
+        Message.print(sender, "${ChatColor.BOLD}Estado de guerra: ${status}")
         if ( Nodes.war.enabled ) {
-            Message.print(sender, "- Can Annex Territories${ChatColor.WHITE}: ${Nodes.war.canAnnexTerritories}")
-            Message.print(sender, "- Can Only Attack Borders${ChatColor.WHITE}: ${Nodes.war.canOnlyAttackBorders}")
-            Message.print(sender, "- Destruction Enabled${ChatColor.WHITE}: ${Nodes.war.destructionEnabled}")
+            Message.print(sender, "- Puede anexar territorios${ChatColor.WHITE}: ${Nodes.war.canAnnexTerritories}")
+            Message.print(sender, "- Solo puede atacar fronteras${ChatColor.WHITE}: ${Nodes.war.canOnlyAttackBorders}")
+            Message.print(sender, "- Destrucción habilitada${ChatColor.WHITE}: ${Nodes.war.destructionEnabled}")
             if ( detailed ) {
-                Message.print(sender, "- Using Towns Whitelist${ChatColor.WHITE}: ${Config.warUseWhitelist}")
-                Message.print(sender, "- Can leave town${ChatColor.WHITE}: ${Config.canLeaveTownDuringWar}")
-                Message.print(sender, "- Can create town${ChatColor.WHITE}: ${Config.canCreateTownDuringWar}")
-                Message.print(sender, "- Can destroy town${ChatColor.WHITE}: ${Config.canDestroyTownDuringWar}")
-                Message.print(sender, "- Annex disabled${ChatColor.WHITE}: ${Config.annexDisabled}")
+                Message.print(sender, "- Usando whitelist de towns${ChatColor.WHITE}: ${Config.warUseWhitelist}")
+                Message.print(sender, "- Puede irse de la town${ChatColor.WHITE}: ${Config.canLeaveTownDuringWar}")
+                Message.print(sender, "- Puede crear towns${ChatColor.WHITE}: ${Config.canCreateTownDuringWar}")
+                Message.print(sender, "- Puede destruir towns${ChatColor.WHITE}: ${Config.canDestroyTownDuringWar}")
+                Message.print(sender, "- Anexión deshabilitada${ChatColor.WHITE}: ${Config.annexDisabled}")
             }
         }
     }
@@ -223,10 +223,10 @@ public object FlagWar {
 
         if ( FlagWar.enabled ) {
             if ( FlagWar.canOnlyAttackBorders ) {
-                Message.broadcast("${ChatColor.DARK_RED}${ChatColor.BOLD}Nodes border skirmishing enabled")
+                Message.broadcast("${ChatColor.DARK_RED}${ChatColor.BOLD}Escaramuza de las fronteras habilitado")
             }
             else {
-                Message.broadcast("${ChatColor.DARK_RED}${ChatColor.BOLD}Nodes war enabled")
+                Message.broadcast("${ChatColor.DARK_RED}${ChatColor.BOLD}La guerra ha sido habilitada")
             }
         }
     }
@@ -543,7 +543,7 @@ public object FlagWar {
 
         val flagBlock = world.getBlockAt(flagBaseX, flagBaseY + 1, flagBaseZ)
         val flagTorch = world.getBlockAt(flagBaseX, flagBaseY + 2, flagBaseZ)
-        val progressBar = Bukkit.getServer().createBossBar("Attacking ${territory.town!!.name} at (${flagBaseX}, ${flagBaseY}, ${flagBaseZ})", BarColor.YELLOW, BarStyle.SOLID)
+        val progressBar = Bukkit.getServer().createBossBar("Atacando ${territory.town!!.name} en (${flagBaseX}, ${flagBaseY}, ${flagBaseZ})", BarColor.YELLOW, BarStyle.SOLID)
         
         // calculate max attack time based on chunk
         var attackTime = Config.chunkAttackTime.toDouble()
@@ -1040,12 +1040,12 @@ public object FlagWar {
             ) {
                 val occupier = territory.occupier
                 Nodes.releaseTerritory(territory)
-                Message.broadcast("${ChatColor.DARK_RED}[War] ${attacker?.name} liberated territory (id=${territory.id}) from ${occupier?.name}!")
+                Message.broadcast("${ChatColor.DARK_RED}[War] ${attacker?.name} liberó el territorio (id=${territory.id}) de ${occupier?.name}!")
             }
             // captured enemy territory
             else {
                 Nodes.captureTerritory(attackerTown, territory)
-                Message.broadcast("${ChatColor.DARK_RED}[War] ${attacker?.name} captured territory (id=${territory.id}) from ${territory.town?.name}!")
+                Message.broadcast("${ChatColor.DARK_RED}[War] ${attacker?.name} capturó el territorio (id=${territory.id}) de ${territory.town?.name}!")
             }
             
         }
@@ -1067,7 +1067,7 @@ public object FlagWar {
                     chunk.occupier = town
                     FlagWar.occupiedChunks.add(chunk.coord)
 
-                    Message.broadcast("${ChatColor.DARK_RED}[War] ${attacker?.name} liberated chunk (${chunk.coord.x}, ${chunk.coord.z}) from ${occupier.name}!")
+                    Message.broadcast("${ChatColor.DARK_RED}[War] ${attacker?.name} liberó el chunk (${chunk.coord.x}, ${chunk.coord.z}) de ${occupier.name}!")
                 }
                 // must be defending captured chunk
                 else {
@@ -1077,7 +1077,7 @@ public object FlagWar {
                     FlagWar.occupiedChunks.remove(chunk.coord)
 
                     if ( chunkOccupier !== null ) {
-                        Message.broadcast("${ChatColor.DARK_RED}[War] ${attacker?.name} defended chunk (${chunk.coord.x}, ${chunk.coord.z}) against ${chunkOccupier.name}!")
+                        Message.broadcast("${ChatColor.DARK_RED}[War] ${attacker?.name} defendió el chunk (${chunk.coord.x}, ${chunk.coord.z}) contra ${chunkOccupier.name}!")
                     }
                 }
             }
@@ -1085,13 +1085,13 @@ public object FlagWar {
                 chunk.occupier = null
                 FlagWar.occupiedChunks.remove(chunk.coord)
 
-                Message.broadcast("${ChatColor.DARK_RED}[War] ${attacker?.name} defended chunk (${chunk.coord.x}, ${chunk.coord.z}) against ${chunk.occupier!!.name}!")
+                Message.broadcast("${ChatColor.DARK_RED}[War] ${attacker?.name} defendió el chunk (${chunk.coord.x}, ${chunk.coord.z}) contra ${chunk.occupier!!.name}!")
             }
             else {
                 chunk.occupier = attack.town
                 FlagWar.occupiedChunks.add(chunk.coord)
 
-                Message.broadcast("${ChatColor.DARK_RED}[War] ${attacker?.name} captured chunk (${chunk.coord.x}, ${chunk.coord.z}) from ${chunk.territory.town?.name}!")
+                Message.broadcast("${ChatColor.DARK_RED}[War] ${attacker?.name} capturó el chunk (${chunk.coord.x}, ${chunk.coord.z}) de ${chunk.territory.town?.name}!")
             }
             
             // update minimaps
