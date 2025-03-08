@@ -41,3 +41,16 @@ import java.util.concurrent.Future
 import java.util.concurrent.ThreadLocalRandom
 import java.util.logging.Logger
 import kotlin.system.measureNanoTime
+
+public class NodesPAPI extends Placeholderexpansion {
+  public String getIdentifier() {
+    return "nodes_nation";
+  }
+
+  public String onRequest(OfflinePlayer player, String identifier) {
+      if (identifier.equals("nodes_nation")) {
+          return resident.nation();
+      }
+      return null;
+    }
+  
