@@ -1,4 +1,15 @@
-package phonon.nodes
+package phonon.nodes;
+package at.helpch.placeholderapi;
+
+import me.clip.placeholderapi.PlaceholderAPI;
+
+import org.bukkit.Bukkit;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.plugin.java.JavaPlugin;
+import me.clip.placeholderapi.PlaceholderAPI;
 
 import com.google.gson.JsonObject
 import org.bukkit.*
@@ -42,15 +53,23 @@ import java.util.concurrent.ThreadLocalRandom
 import java.util.logging.Logger
 import kotlin.system.measureNanoTime
 
-public class NodesPAPI extends Placeholderexpansion {
+public class NodesPAPI extends Placeholderexpansion implements Listener {
+  
   public String getIdentifier() {
     return "nodes_nation";
   }
 
   public String onRequest(OfflinePlayer player, String identifier) {
-      if (identifier.equals("nodes_nation")) {
+      if (identifier.equals("nodes_town")) {
           return resident.town();
       }
       return null;
-    }
+  }
+
+  public String onRequest(OfflinePlayer player, String identifier) {
+      if (identifier.equals("nodes_nation")) {
+          return resident.nation();
+      }
+      return null;
+  }
   
