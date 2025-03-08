@@ -66,7 +66,7 @@ class NodesPAPI : PlaceholderExpansion(), Listener {
     }
 
     override fun onRequest(player: OfflinePlayer?, identifier: String): String? {
-        val resident = Residents.getResident(player?.uniqueId)
+        val resident = getResident(player?.uniqueId)
         return when (identifier) {
             "nodes_town" -> resident.town()
             "nodes_nation" -> resident.nation()
