@@ -184,27 +184,27 @@ public class Town(
 
     // prints out nation object info
     public fun printInfo(sender: CommandSender) {
-        val nation = this.nation?.name ?: "${ChatColor.GRAY}None"
-        val leader = this.leader?.name ?: "${ChatColor.GRAY}None"
+        val nation = this.nation?.name ?: "${ChatColor.GRAY}Ninguno"
+        val leader = this.leader?.name ?: "${ChatColor.GRAY}Ninguno"
         val officers = if ( this.officers.size > 0 ) {
             this.officers.map {r -> r.name}.joinToString(", ")
         } else {
-            "${ChatColor.GRAY}None"
+            "${ChatColor.GRAY}Ninguno"
         }
         val residents = if ( this.residents.size > 0 ) {
             this.residents.map {r -> r.name}.joinToString(", ")
         } else {
-            "${ChatColor.GRAY}None"
+            "${ChatColor.GRAY}Ninguno"
         }
         val allies = if ( this.allies.size > 0 ) {
             this.allies.map {it -> it.name}.joinToString(", ")
         } else {
-            "${ChatColor.GRAY}None"
+            "${ChatColor.GRAY}Ninguno"
         }
         val enemies = if ( this.enemies.size > 0 ) {
             this.enemies.map {it -> it.name}.joinToString(", ")
         } else {
-            "${ChatColor.GRAY}None"
+            "${ChatColor.GRAY}Ninguno"
         }
         
         // make max claims red if town has penalty
@@ -221,15 +221,15 @@ public class Town(
         }
 
         Message.print(sender, "${ChatColor.BOLD}Town ${this.name}:")
-        Message.print(sender, "- Home${ChatColor.WHITE}: Territory (id = ${this.home})")
-        Message.print(sender, "- Territories${ChatColor.WHITE}: ${this.territories.size}")
-        Message.print(sender, "- Claim Power${ChatColor.WHITE}: ${claimsUsedColor}${this.claimsUsed}/${claimsMaxColor}${this.claimsMax}")
-        Message.print(sender, "- Nation${ChatColor.WHITE}: ${nation}")
-        Message.print(sender, "- Allies${ChatColor.WHITE}: ${allies}")
-        Message.print(sender, "- Enemies${ChatColor.WHITE}: ${enemies}")
-        Message.print(sender, "- Leader${ChatColor.WHITE}: ${leader}")
+        Message.print(sender, "- Capiral${ChatColor.WHITE}: Territorio (id = ${this.home})")
+        Message.print(sender, "- Territorios${ChatColor.WHITE}: ${this.territories.size}")
+        Message.print(sender, "- Poder de claim${ChatColor.WHITE}: ${claimsUsedColor}${this.claimsUsed}/${claimsMaxColor}${this.claimsMax}")
+        Message.print(sender, "- Nación${ChatColor.WHITE}: ${nation}")
+        Message.print(sender, "- Aliados${ChatColor.WHITE}: ${allies}")
+        Message.print(sender, "- Enemigos${ChatColor.WHITE}: ${enemies}")
+        Message.print(sender, "- Líder${ChatColor.WHITE}: ${leader}")
         Message.print(sender, "- Officers[${this.officers.size}]${ChatColor.WHITE}: ${officers}")
-        Message.print(sender, "- Residents[${this.residents.size}]${ChatColor.WHITE}: ${residents}")
+        Message.print(sender, "- Habitantes[${this.residents.size}]${ChatColor.WHITE}: ${residents}")
     }
 
     /**
