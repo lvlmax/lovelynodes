@@ -2,7 +2,7 @@ main: phonon.nodes.NodesPlugin
 name: lovelynodes
 version: $version
 api-version: 1.16
-softdepend: [Essentials]
+softdepend: [Essentials, PlaceholderAPI]
 folia-supported: true
 commands:
   nodesadmin:
