@@ -124,7 +124,7 @@ public object Deserializer {
                 // get home territory id, if missing skip town
                 val homeId = town.get("home")?.getAsInt()
                 if ( homeId == null ) {
-                    System.err.println("Cannot create ${name}: no home")
+                    System.err.println("No se pudo crear ${name}: no hay home")
                     return@forEach
                 }
 
@@ -273,7 +273,7 @@ public object Deserializer {
                             }
                         }
                         catch ( err: IllegalArgumentException ) {
-                            System.err.println("Invalid town permission: ${type}")
+                            System.err.println("Permiso de town inválido: ${type}")
                         }
                     }
                 }
