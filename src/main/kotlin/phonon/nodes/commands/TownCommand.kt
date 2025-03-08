@@ -326,7 +326,7 @@ public class TownCommand : CommandExecutor, TabCompleter {
         Message.print(sender, "/town online${ChatColor.WHITE}: Ver jugadores activos en el momento de una town")
         Message.print(sender, "/town prefix${ChatColor.WHITE}: Set player name prefix")
         Message.print(sender, "/town suffix${ChatColor.WHITE}: Set player name suffix")
-        Message.print(sender, "/town map${ChatColor.WHITE}: Ver los claims en el chat)
+        Message.print(sender, "/town map${ChatColor.WHITE}: Ver los claims en el chat")
         Message.print(sender, "/town minimap${ChatColor.WHITE}: Habilita/deshabilita el minimapa de chunks")
         Message.print(sender, "/town permissions${ChatColor.WHITE}: Configura los permisos de la town")
         Message.print(sender, "/town protect${ChatColor.WHITE}: Proteger los cofres en el territorio")
@@ -425,7 +425,7 @@ public class TownCommand : CommandExecutor, TabCompleter {
 
         val town = resident.town
         if ( town == null ) {
-            Message.error(player, "No eres miembro de una town, usa /town join \[nombre]\")
+            Message.error(player, "No eres miembro de una town")
             return
         }
 
@@ -2107,7 +2107,7 @@ public class TownCommand : CommandExecutor, TabCompleter {
         // check if player is leader or officer
         val leader = town.leader
         if ( resident !== leader && !town.officers.contains(resident) ) {
-            Message.error(player, "Solo el líder y los officers pueden mover el spawn del outpost)
+            Message.error(player, "Solo el líder y los officers pueden mover el spawn del outpost")
             return
         }
 
