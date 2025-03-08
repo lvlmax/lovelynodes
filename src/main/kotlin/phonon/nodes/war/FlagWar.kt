@@ -1,4 +1,4 @@
-/**
+t/**
  * Flag war implementation conceptually based on
  * Towny flag war:
  * https://github.com/TownyAdvanced/Towny/tree/master/src/com/palmergames/bukkit/towny/war/flagwar
