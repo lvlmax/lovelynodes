@@ -33,14 +33,14 @@ public class NodesPlugin : JavaPlugin() {
         val dynmap = pluginManager.getPlugin("dynmap")
         if ( dynmap !== null ) {
             Nodes.hookDynmap()
-            logger.info("Using Dynmap v${dynmap.getDescription().getVersion()}")
+            logger.info("Usando Dynmap v${dynmap.getDescription().getVersion()}")
         }
 
         // protocol lib, may be needed?
         val protocolLib = pluginManager.getPlugin("ProtocolLib")
         if ( protocolLib !== null && Config.useNametags ) {
             Nodes.hookProtocolLib()
-            logger.info("Using ProtocolLib v${protocolLib.getDescription().getVersion()}")
+            logger.info("Usando ProtocolLib v${protocolLib.getDescription().getVersion()}")
         }
 
         // ===================================
