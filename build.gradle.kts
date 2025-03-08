@@ -10,7 +10,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 
 // disable default versioning
-version = "0.1.2"
+version = "0.3"
 
 // jvm target
 val JVM = 17 // 1.8 for 8, 11 for 11
