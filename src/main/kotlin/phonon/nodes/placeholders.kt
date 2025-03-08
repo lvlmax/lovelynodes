@@ -60,16 +60,13 @@ public class NodesPAPI extends Placeholderexpansion implements Listener {
   }
 
   public String onRequest(OfflinePlayer player, String identifier) {
-      if (identifier.equals("nodes_town")) {
-          return resident.town();
-      }
-      return null;
-  }
-
-  public String onRequest(OfflinePlayer player, String identifier) {
-      if (identifier.equals("nodes_nation")) {
-          return resident.nation();
-      }
-      return null;
-  }
-}  
+    Resident resident = Residents.getResident(player.getUniqueId());
+    if (identifier.equals("nodes_town")) {
+        return resident.town();
+    }
+    if (identifier.equals("nodes_nation")) {
+        return resident.nation();
+    }
+    return null;
+  }  
+}
