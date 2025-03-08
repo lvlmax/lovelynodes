@@ -53,24 +53,31 @@ import kotlin.system.measureNanoTime
 
 class NodesPAPI : PlaceholderExpansion(), Listener {
 
-    override fun getIdentifier(): String {
-        return "nodes_nation"
+    @Override
+    public String getIdentifier() {
+        return "nodes";
     }
 
-    override fun getAuthor(): String {
-        return "YourName" // Cambia esto por tu nombre
+    @Override
+    public String getAuthor() {
+        return "lovelymax";
     }
 
-    override fun getVersion(): String {
-        return "1.0.0" // Cambia esto por la versión de tu plugin
+    @Override
+    public String getVersion() {
+        return "1.0";
     }
 
-    override fun onRequest(player: OfflinePlayer?, identifier: String): String? {
-        val resident = getResident(player?.uniqueId)
-        return when (identifier) {
-            "nodes_town" -> resident.town()
-            "nodes_nation" -> resident.nation()
-            else -> null
+    public String onPlaceholderRequest(Player player, String params) {
+        if (params.equalsIgnoreCase("town")) {
+            String townName = resident.town(player); 
+            return townName;
+        }
+    }
+    public String onPlaceholderRequest(Player player, String params) {
+        if (params.equalsIgnoreCase("nation")) {
+            String nationName = resident.nation(player); 
+            return nationName;
         }
     }
 }
