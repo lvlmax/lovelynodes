@@ -47,7 +47,7 @@ repositories {
         url = uri("https://repo.dmulloy2.net/nexus/repository/public/")
     }
     maven { // placeholder api
-        url = 'https://repo.extendedclip.com/releases/'
+        url = uri("https://repo.extendedclip.com/releases/")
     }
     maven {
         url = uri("https://repo.repsy.io/mvn/tlm920/minecraft")
