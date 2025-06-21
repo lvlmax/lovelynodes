@@ -1,7 +1,7 @@
-# lovelynodes
+# lovelynodes (GH3)
 ![Nodes map screenshot](https://i.ibb.co/GcccyBs/nodes-map-example.jpg)
 
-Copia de la copia de la copia (Traducción y implementación de complementos del plugin de znodes hecho por Mvndi que a la vez es un fork del plugin minecraft-nodes de phonon)
+Copia de la copia de la copia (Traducción plugin de znodes, también tiene "bloqueado" algunos comandos para limitar funciones del servidor)
 
 No tengo intención en actualizar el plugin, solo he actualizado y retocado algunas funcionalidades para que se adapte a las necesidades del servidor.
 
