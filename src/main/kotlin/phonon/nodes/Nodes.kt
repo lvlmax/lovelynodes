@@ -133,7 +133,7 @@ public object Nodes {
         // get config file
         val configFile = File(plugin.getDataFolder().getPath(), "config.yml")
         if ( !configFile.exists() ) {
-            logger.info("No config found: generating default config.yml")
+            logger.info("No se encontró la config: Generando config.yml predeterminado.")
             plugin.saveDefaultConfig()
         }
         
@@ -2551,7 +2551,7 @@ public object Nodes {
         }
 
         // message players ingame that income collected
-        Message.broadcast("Towns have collected income (use \"/t income\" to get)")
+        Message.broadcast("Las Towns han recolectado income (usa \"/t income\" para obtener)")
     }
 
     // ==============================================
