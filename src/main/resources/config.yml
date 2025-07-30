@@ -11,7 +11,7 @@
 # ===================================
 # disable world when nodes world.json or towns.json fails due to errors
 # (e.g. stops block place/destroy and other world interactions)
-disableWorldWhenLoadFails: true
+disableWorldWhenLoadFails: false
 
 # save period in seconds
 savePeriod: 600
