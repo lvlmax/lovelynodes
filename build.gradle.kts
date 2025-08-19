@@ -10,7 +10,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 
 // disable default versioning
-version = "0.1.2"
+version = "0.3"
 
 // jvm target
 val JVM = 17 // 1.8 for 8, 11 for 11
@@ -46,8 +46,9 @@ repositories {
     maven { // protocol lib
         url = uri("https://repo.dmulloy2.net/nexus/repository/public/")
     }
-
-    // fast block edit
+    maven { // placeholder api
+        url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi/")
+    }
     maven {
         url = uri("https://repo.repsy.io/mvn/tlm920/minecraft")
     }
@@ -81,7 +82,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.9")
     
     // protocol lib (nametag packets)
-    compileOnly("com.comphenix.protocol:ProtocolLib:5.2.0")
+    compileOnly("com.comphenix.protocol:ProtocolLib:4.5.0")
 
     // Use the Kotlin test library.
     testImplementation("org.jetbrains.kotlin:kotlin-test")
