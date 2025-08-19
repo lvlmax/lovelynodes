@@ -47,7 +47,7 @@ repositories {
         url = uri("https://repo.dmulloy2.net/nexus/repository/public/")
     }
     maven { // placeholder api
-        url = uri("https://repo.extendedclip.com/releases/")
+        url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     }
     maven {
         url = uri("https://repo.repsy.io/mvn/tlm920/minecraft")
@@ -84,13 +84,13 @@ dependencies {
     // protocol lib (nametag packets)
     compileOnly("com.comphenix.protocol:ProtocolLib:4.5.0")
 
+    compileOnly("me.clip:placeholderapi:2.11.5")
+
     // Use the Kotlin test library.
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 
     // Use the Kotlin JUnit integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
-
-    compileOnly("me.clip:placeholderapi:2.11.6")
 
 // TODO: resolve fast block edit build issues
 //    when (target) {
