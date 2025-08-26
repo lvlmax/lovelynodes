@@ -44,7 +44,7 @@ repositories {
         url = uri("https://repo.papermc.io/repository/maven-public/")
     }
     maven { // protocol lib
-        url = uri("https://repo.dmulloy2.net/nexus/repository/public/")
+        url = uri("https://repo.codemc.io/repository/maven-public/")
     }
 
     // fast block edit
@@ -81,7 +81,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.9")
     
     // protocol lib (nametag packets)
-    compileOnly("com.comphenix.protocol:ProtocolLib:4.5.0")
+    compileOnly("com.comphenix.protocol:ProtocolLib:5.2.0")
 
     // Use the Kotlin test library.
     testImplementation("org.jetbrains.kotlin:kotlin-test")
