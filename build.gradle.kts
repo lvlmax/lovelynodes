@@ -81,7 +81,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.9")
     
     // protocol lib (nametag packets)
-    compileOnly("com.comphenix.protocol:ProtocolLib:5.2.0")
+    compileOnly("net.dmulloy2:ProtocolLib:5.4.0")
 
     // Use the Kotlin test library.
     testImplementation("org.jetbrains.kotlin:kotlin-test")
