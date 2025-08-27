@@ -3,7 +3,7 @@ plugins {
     id 'application'
     id 'maven-publish'
     id 'org.jetbrains.kotlin.jvm' version '1.6.10'
-    id 'io.papermc.paperweight.userdev' version '1.3.8'
+    id 'io.papermc.paperweight.userdev' version '1.7.1'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
@@ -45,7 +45,7 @@ dependencies {
     compileOnly "io.papermc.paper:paper-api:${target}-R0.1-SNAPSHOT"
 
     // Paper dev bundle
-    paperweightDevBundle "io.papermc.paper:dev-bundle:${target}-R0.1-SNAPSHOT"
+    paperweightDevBundle "io.papermc.paper:dev-bundle:1.20.1-R0.1-SNAPSHOT"
 }
 
 application {
