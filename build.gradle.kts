@@ -10,7 +10,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 
 // disable default versioning
-version = "0.0.10"
+version = 1.0"
 
 // jvm target
 val JVM = 17 // 1.8 for 8, 11 for 11
@@ -46,7 +46,9 @@ repositories {
     maven { // protocol lib
         url = uri("https://repo.codemc.io/repository/maven-public/")
     }
-
+    maven { // placeholder api
+        url = uri("https://repo.extendedclip.com/releases/")
+    }
     // fast block edit
     maven {
         url = uri("https://repo.repsy.io/mvn/tlm920/minecraft")
