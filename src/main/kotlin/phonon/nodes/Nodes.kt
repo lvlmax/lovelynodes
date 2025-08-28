@@ -377,6 +377,7 @@ public object Nodes {
                 cost = cost,
                 income = resources.income,
                 incomeSpawnEgg = resources.incomeSpawnEgg,
+                customIncome = resources.customIncome,
                 ores = ores,
                 crops = resources.crops,
                 animals = resources.animals,
@@ -2493,6 +2494,30 @@ public object Nodes {
                             occupier.income.add(material, amount)
                         }
                     }
+                    
+                    // custom item income
+                    for ( (identifier, rate) in territory.customIncome ) {
+                        val amount: Int = rateToAmount(rate)
+                        if ( amount > 1 ) {
+                            val amountTaxed: Int = Math.ceil(taxRate * amount).toInt()
+                            occupier.income.addCustomItemByIdentifier(identifier, amountTaxed)
+
+                            val amountKept: Int = amount - amountTaxed
+                            
+                            // apply over claims penalty
+                            if ( town.isOverClaimsMax == true ) {
+                                val newAmountKept: Int = Math.floor(amountKept.toDouble() * (1.0 - Config.overClaimsMaxPenalty)).toInt()
+                                town.income.addCustomItemByIdentifier(identifier, newAmountKept)
+                            }
+                            else {
+                                town.income.addCustomItemByIdentifier(identifier, amountKept)
+                            }
+                        }
+                        // if <= 1, give all to occupier
+                        else {
+                            occupier.income.addCustomItemByIdentifier(identifier, amount)
+                        }
+                    }
 
                     // 1.12 spawn egg income
                     // for ( (entityType, rate) in territory.incomeSpawnEgg ) {
@@ -2531,6 +2556,18 @@ public object Nodes {
                         }
 
                         town.income.add(material, amount)
+                    }
+                    
+                    // custom item income
+                    for ( (identifier, rate) in territory.customIncome ) {
+                        var amount: Int = rateToAmount(rate)
+
+                        // over max claims penalty
+                        if ( town.isOverClaimsMax == true ) {
+                            amount = Math.floor(amount.toDouble() * (1.0 - Config.overClaimsMaxPenalty)).toInt()
+                        }
+
+                        town.income.addCustomItemByIdentifier(identifier, amount)
                     }
 
                     // 1.12 spawn egg income

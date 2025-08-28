@@ -47,6 +47,7 @@ private val SUBCOMMANDS: List<String> = listOf(
     "truce",
     "truceremove",
     "treaty",
+    "customincome",
     "save",
     "load",
     "runincome",
@@ -121,6 +122,14 @@ private val DEBUG_SUBCOMMANDS: List<String> = listOf(
     "nation"
 )
 
+// custom income subcommands
+private val CUSTOMINCOME_SUBCOMMANDS: List<String> = listOf(
+    "add",
+    "create",
+    "give",
+    "list"
+)
+
 public class NodesAdminCommand : CommandExecutor, TabCompleter {
 
     override fun onCommand(sender: CommandSender, cmd: Command, commandLabel: String, args: Array<String>): Boolean {
@@ -147,6 +156,7 @@ public class NodesAdminCommand : CommandExecutor, TabCompleter {
             "truce" -> setTruce(sender, args)
             "truceremove" -> removeTruce(sender, args)
             "treaty" -> manageTreaty(sender, args)
+            "customincome" -> manageCustomIncome(sender, args)
             "save" -> saveWorld(sender)
             "load" -> loadWorld(sender)
             "runincome" -> Nodes.runIncome()
@@ -355,6 +365,32 @@ public class NodesAdminCommand : CommandExecutor, TabCompleter {
                     }
                 }
 
+                // /nodesadmin customincome [subcommand]
+                "customincome" -> {
+                    if ( args.size == 2 ) {
+                        return filterByStart(CUSTOMINCOME_SUBCOMMANDS, args[1])
+                    }
+                    else if ( args.size > 2 ) {
+                        when ( args[1].lowercase() ) {
+                            "add" -> {
+                                if ( args.size == 5 ) {
+                                    return filterTown(args[4])
+                                }
+                            }
+                            "give" -> {
+                                if ( args.size == 5 ) {
+                                    return filterByStart(Nodes.plugin?.server?.onlinePlayers?.map { it.name } ?: emptyList(), args[4])
+                                }
+                            }
+                            "list" -> {
+                                if ( args.size == 3 ) {
+                                    return filterTown(args[2])
+                                }
+                            }
+                        }
+                    }
+                }
+
                 // /nodesadmin debug [subcommand]
                 "debug" -> {
                     if ( args.size == 2 ) {
@@ -402,6 +438,7 @@ public class NodesAdminCommand : CommandExecutor, TabCompleter {
         Message.print(sender, "/nodesadmin allyremove${ChatColor.WHITE}: Removes alliance between two towns/nations")
         Message.print(sender, "/nodesadmin truce${ChatColor.WHITE}: Sets truce between two towns/nations")
         Message.print(sender, "/nodesadmin truceremove${ChatColor.WHITE}: Removes truce between two towns/nations")
+        Message.print(sender, "/nodesadmin customincome${ChatColor.WHITE}: Manage custom income items with CustomModelData")
         Message.print(sender, "/nodesadmin save${ChatColor.WHITE}: Force save world")
         Message.print(sender, "/nodesadmin load${ChatColor.WHITE}: Force load world")
         Message.print(sender, "/nodesadmin runincome${ChatColor.WHITE}: Runs income for all towns")
@@ -2238,4 +2275,23 @@ public class NodesAdminCommand : CommandExecutor, TabCompleter {
         }
     }
     */
+    
+    /**
+     * @command /nodesadmin customincome [subcommand]
+     * Manage custom income items with CustomModelData
+     */
+    private fun manageCustomIncome(sender: CommandSender, args: Array<String>) {
+        if (args.size < 2) {
+            Message.error(sender, "Usage: /nodesadmin customincome [add/create/give/list]")
+            return
+        }
+        
+        when (args[1].lowercase()) {
+            "add" -> CustomIncomeCommands.addCustomIncome(sender, args)
+            "create" -> CustomIncomeCommands.createCustomIncomeItem(sender, args)
+            "give" -> CustomIncomeCommands.giveCustomIncomeItem(sender, args)
+            "list" -> CustomIncomeCommands.listCustomIncome(sender, args)
+            else -> Message.error(sender, "Invalid subcommand. Use: add, create, give, or list")
+        }
+    }
 }

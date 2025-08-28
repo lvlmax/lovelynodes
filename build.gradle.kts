@@ -82,7 +82,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.9")
     
     // protocol lib (nametag packets)
-    compileOnly("com.comphenix.protocol:ProtocolLib:4.5.0")
+    compileOnly("com.comphenix.protocol:ProtocolLib:5.3.0")
 
     // Use the Kotlin test library.
     testImplementation("org.jetbrains.kotlin:kotlin-test")
@@ -112,7 +112,10 @@ application {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.freeCompilerArgs = listOf("-Xallow-result-return-type")
+    kotlinOptions {
+        jvmTarget = "17"
+        // Remove -Xallow-result-return-type flag if it exists
+    }
 }
 
 tasks {

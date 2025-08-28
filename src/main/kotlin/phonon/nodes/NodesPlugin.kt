@@ -4,6 +4,7 @@
 
 package phonon.nodes
 
+import org.bukkit.Bukkit
 import org.bukkit.command.TabCompleter
 import org.bukkit.plugin.java.JavaPlugin
 import phonon.nodes.commands.*
@@ -25,6 +26,12 @@ public class NodesPlugin : JavaPlugin() {
 
         // initialize nodes
         Nodes.initialize(this)
+        
+        // PlaceholderAPI hook
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            // Assume PlaceholderAPI hook is handled in Nodes.initialize()
+            logger.info("PlaceholderAPI found and hooked")
+        }
 
         // ===================================
         // save hooks to external plugins

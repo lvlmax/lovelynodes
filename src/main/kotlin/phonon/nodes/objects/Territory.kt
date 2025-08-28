@@ -177,6 +177,7 @@ data class TerritoryResources(
     // core properties
     val income: EnumMap<Material, Double> = EnumMap<Material, Double>(Material::class.java),
     val incomeSpawnEgg: EnumMap<EntityType, Double> = EnumMap<EntityType, Double>(EntityType::class.java),
+    val customIncome: HashMap<String, Double> = HashMap(),
     val ores: EnumMap<Material, OreDeposit> = EnumMap<Material, OreDeposit>(Material::class.java),
     val crops: EnumMap<Material, Double> = EnumMap<Material, Double>(Material::class.java),
     val animals: EnumMap<EntityType, Double> = EnumMap<EntityType, Double>(EntityType::class.java),
@@ -184,6 +185,7 @@ data class TerritoryResources(
     // neighbor modifiers
     val neighborIncome: EnumMap<Material, Double>? = null,
     val neighborIncomeSpawnEgg: EnumMap<EntityType, Double>? = null,
+    val neighborCustomIncome: HashMap<String, Double>? = null,
     val neighborOres: EnumMap<Material, OreDeposit>? = null,
     val neighborCrops: EnumMap<Material, Double>? = null,
     val neighborAnimals: EnumMap<EntityType, Double>? = null,
@@ -193,6 +195,7 @@ data class TerritoryResources(
     val neighborTotalAnimalsMultiplier: Double? = null,
     val neighborIncomeMultiplier: EnumMap<Material, Double>? = null,
     val neighborIncomeSpawnEggMultiplier: EnumMap<EntityType, Double>? = null,
+    val neighborCustomIncomeMultiplier: HashMap<String, Double>? = null,
     val neighborOresMultiplier: EnumMap<Material, Double>? = null,
     val neighborCropsMultiplier: EnumMap<Material, Double>? = null,
     val neighborAnimalsMultiplier: EnumMap<EntityType, Double>? = null,
@@ -348,6 +351,7 @@ data class Territory(
     val cost: Int,
     val income: EnumMap<Material, Double>,
     val incomeSpawnEgg: EnumMap<EntityType, Double>,
+    val customIncome: HashMap<String, Double>,
     val ores: OreSampler,
     val crops: EnumMap<Material, Double>,
     val animals: EnumMap<EntityType, Double>,
@@ -362,7 +366,7 @@ data class Territory(
     val animalsCanBreed: Boolean
 
     init {
-        this.containsIncome = income.size > 0
+        this.containsIncome = income.size > 0 || customIncome.size > 0
         this.containsOre = ores.containsOre
         this.cropsCanGrow = crops.size > 0
         this.animalsCanBreed = animals.size > 0

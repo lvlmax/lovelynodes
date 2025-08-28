@@ -17,6 +17,7 @@ import org.bukkit.Material
 import org.bukkit.entity.EntityType
 import phonon.nodes.objects.TerritoryResources
 import phonon.nodes.objects.OreDeposit
+import phonon.nodes.objects.CustomIncomeItem
 
 public object Config {
 
@@ -496,6 +497,7 @@ public object Config {
 private fun parseGlobalResources(globalResourcesSection: ConfigurationSection): TerritoryResources {
     val income: EnumMap<Material, Double> = EnumMap<Material, Double>(Material::class.java)
     val incomeSpawnEgg: EnumMap<EntityType, Double> = EnumMap<EntityType, Double>(EntityType::class.java)
+    val customIncome: HashMap<String, Double> = HashMap()
     val ores: EnumMap<Material, OreDeposit> = EnumMap<Material, OreDeposit>(Material::class.java)
     val crops: EnumMap<Material, Double> = EnumMap<Material, Double>(Material::class.java)
     val animals: EnumMap<EntityType, Double> = EnumMap<EntityType, Double>(EntityType::class.java)
@@ -508,6 +510,13 @@ private fun parseGlobalResources(globalResourcesSection: ConfigurationSection): 
                 val entityType = EntityType.valueOf(itemName.replace("SPAWN_EGG_", ""))
                 if ( entityType !== null ) {
                     incomeSpawnEgg.put(entityType, section.getDouble(item))
+                }
+            }
+            // custom item (contains colon, indicating custom model data or metadata)
+            else if ( item.contains(":") ) {
+                val customItem = CustomIncomeItem.fromIdentifier(item)
+                if ( customItem !== null ) {
+                    customIncome.put(item, section.getDouble(item))
                 }
             }
             // regular material
@@ -567,6 +576,7 @@ private fun parseGlobalResources(globalResourcesSection: ConfigurationSection): 
     return TerritoryResources(
         income = income,
         incomeSpawnEgg = incomeSpawnEgg,
+        customIncome = customIncome,
         ores = ores,
         crops = crops,
         animals = animals,

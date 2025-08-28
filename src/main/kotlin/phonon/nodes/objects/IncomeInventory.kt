@@ -36,6 +36,9 @@ public class IncomeInventory: InventoryHolder {
     
     // storage for spawn eggs
     val storageSpawnEgg: EnumMap<EntityType, Int> = EnumMap<EntityType, Int>(EntityType::class.java)
+    
+    // storage for custom items with CustomModelData
+    val storageCustomItems: HashMap<String, Int> = HashMap()
 
     // inventory gui object, only populate when open
     val _inventory: Inventory = Bukkit.createInventory(this, 54, "Income de la Town")
@@ -57,6 +60,16 @@ public class IncomeInventory: InventoryHolder {
             storageSpawnEgg.put(type, amount)
         }
     }
+    
+    // internal, add custom items to storage
+    private fun _addCustomItem(customItem: CustomIncomeItem, amount: Int) {
+        val identifier = customItem.getIdentifier()
+        this.storageCustomItems[identifier]?.let { current ->
+            storageCustomItems[identifier] = current + amount
+        } ?: run {
+            storageCustomItems[identifier] = amount
+        }
+    }
 
     // public interface to add new items to storage
     // meta: integer metadata depends on material, either EntityType or damage value
@@ -76,10 +89,31 @@ public class IncomeInventory: InventoryHolder {
         //     this._add(mat, amount)
         // }
     }
+    
+    // public interface to add custom items to storage
+    public fun addCustomItem(customItem: CustomIncomeItem, amount: Int) {
+        if ( amount <= 0 ) {
+            return
+        }
+        
+        this._addCustomItem(customItem, amount)
+    }
+    
+    // public interface to add custom items by identifier
+    public fun addCustomItemByIdentifier(identifier: String, amount: Int) {
+        if ( amount <= 0 ) {
+            return
+        }
+        
+        val customItem = CustomIncomeItem.fromIdentifier(identifier)
+        if (customItem != null) {
+            this._addCustomItem(customItem, amount)
+        }
+    }
 
     // checks if any items in inventory or storage
     public fun empty(): Boolean {
-        return ( storage.size == 0 ) && ( storageSpawnEgg.size == 0 )
+        return ( storage.size == 0 ) && ( storageSpawnEgg.size == 0 ) && ( storageCustomItems.size == 0 )
     }
 
     // implement getInventory for InventoryHolder
@@ -119,6 +153,25 @@ public class IncomeInventory: InventoryHolder {
         //         return this._inventory
         //     }
         // }
+        
+        // populate custom items
+        while ( this.storageCustomItems.size > 0 ) {
+            val item = this.storageCustomItems.iterator().next()
+            val identifier = item.key
+            val amount = item.value
+            this.storageCustomItems.remove(identifier)
+            
+            val customItem = CustomIncomeItem.fromIdentifier(identifier)
+            if (customItem != null) {
+                val itemStack = customItem.toItemStack(amount)
+                val itemsFailedToAdd = this._inventory.addItem(itemStack)
+                if ( itemsFailedToAdd.size > 0 ) {
+                    val leftoverItems = itemsFailedToAdd.get(0)!!
+                    this.storageCustomItems.put(identifier, leftoverItems.amount)
+                    return this._inventory
+                }
+            }
+        }
 
         return this._inventory
     }
@@ -152,7 +205,16 @@ public class IncomeInventory: InventoryHolder {
                     //     this._add(itemStack.type, itemStack.amount)
                     // }
 
-                    this._add(itemStack.type, itemStack.amount)
+                    // Check if this item has custom metadata (CustomModelData, display name, or lore)
+                    val meta = itemStack.itemMeta
+                    if (meta != null && (meta.hasCustomModelData() || meta.hasDisplayName() || meta.hasLore())) {
+                        // Handle as custom item
+                        val customItem = CustomIncomeItem.fromItemStack(itemStack)
+                        this._addCustomItem(customItem, itemStack.amount)
+                    } else {
+                        // Handle as regular item
+                        this._add(itemStack.type, itemStack.amount)
+                    }
     
                     hasMovedItems = true
                 }

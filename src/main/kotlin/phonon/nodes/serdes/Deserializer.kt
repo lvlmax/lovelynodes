@@ -369,7 +369,7 @@ public object Deserializer {
                 }
 
                 // parse capital town name
-                val capitalName = nation.get("capital").getAsString()
+                val capitalName = nation.get("capital")?.getAsString() ?: ""
 
                 // parse color
                 val colorArray = nation.get("color")?.getAsJsonArray()
@@ -406,17 +406,27 @@ public object Deserializer {
                     }
                 }
 
-                val nationObject = Nodes.loadNation(
-                    uuid,
-                    name,
-                    capitalName,
-                    color,
-                    towns
-                )
+                // Skip nation creation if capital name is empty or towns list is empty
+                if ( capitalName.isEmpty() || towns.isEmpty() ) {
+                    System.err.println("Saltando nación ${name}: capital vacío o sin towns")
+                    return@forEach
+                }
 
-                nations.add(nationObject)
-                nationAllies.add(allies)
-                nationEnemies.add(enemies)
+                try {
+                    val nationObject = Nodes.loadNation(
+                        uuid,
+                        name,
+                        capitalName,
+                        color,
+                        towns
+                    )
+
+                    nations.add(nationObject)
+                    nationAllies.add(allies)
+                    nationEnemies.add(enemies)
+                } catch (e: Exception) {
+                    System.err.println("Error cargando nación ${name}: ${e.message}")
+                }
             }
         }
         
